@@ -1,0 +1,55 @@
+---
+const menuItems = [
+  {
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "Our Story",
+    path: "/our-story",
+  },
+  {
+    title: "Schedule",
+    path: "/schedule",
+  },
+  {
+    title: "RSVP",
+    path: "/rsvp",
+  },
+  {
+    title: "Registry",
+    path: "/registry",
+  },
+  {
+    title: "Where to Stay",
+    path: "/where-to-stay",
+  },
+  {
+    title: "Things to Do",
+    path: "/things-to-do",
+  },
+  {
+    title: "FAQs",
+    path: "/faqs",
+  },
+];
+---
+
+<nav>
+  <ul class="flex flex-col lg:flex-row lg:gap-3">
+    {
+      menuItems.map((item, index) => (
+        <>
+          <li>
+            <a
+              href={item.path}
+              class="flex lg:px-3 py-2 text-gray-600 hover:text-gray-900"
+            >
+              {item.title}
+            </a>
+          </li>
+        </>
+      ))
+    }
+  </ul>
+</nav>
