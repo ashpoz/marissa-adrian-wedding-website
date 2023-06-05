@@ -1,9 +1,7 @@
 ---
+import logoIcon from "@assets/icons/logo-burgundy.svg";
+
 const menuItems = [
-  {
-    title: "Home",
-    path: "/",
-  },
   {
     title: "Our Story",
     path: "/our-story",
@@ -18,7 +16,7 @@ const menuItems = [
   },
   {
     title: "Registry",
-    path: "/registry",
+    path: "https://www.myregistry.com/wedding-registry/marissa-caputo-and-adrian-haynes-austin-tx/3775564/giftlist",
   },
   {
     title: "Where to Stay",
@@ -35,8 +33,15 @@ const menuItems = [
 ];
 ---
 
-<nav>
-  <ul class="flex flex-col lg:flex-row lg:gap-3">
+<nav class="p-4">
+  <ul
+    class="container font-serif mx-auto flex flex-col lg:flex-row lg:gap-3 justify-evenly text-lg"
+  >
+    <li class="basis-1/5">
+      <a href="/">
+        <img src={logoIcon} alt="" />
+      </a>
+    </li>
     {
       menuItems.map((item, index) => (
         <>
