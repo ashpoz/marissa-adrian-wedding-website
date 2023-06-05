@@ -11,10 +11,6 @@ const menuItems = [
     path: "/schedule",
   },
   {
-    title: "RSVP",
-    path: "/rsvp",
-  },
-  {
     title: "Registry",
     path: "https://www.myregistry.com/wedding-registry/marissa-caputo-and-adrian-haynes-austin-tx/3775564/giftlist",
   },
@@ -30,6 +26,10 @@ const menuItems = [
     title: "FAQs",
     path: "/faqs",
   },
+  {
+    title: "RSVP",
+    path: "/rsvp",
+  },
 ];
 ---
 
@@ -43,8 +43,20 @@ const menuItems = [
       </a>
     </li>
     {
-      menuItems.map((item, index) => (
-        <>
+      // TODO: Add active class to current page
+      // TODO: Add hover effect
+      // TODO: Add mobile menu
+      menuItems.map((item, index) =>
+        menuItems.length - 1 === index ? (
+          <li>
+            <a
+              href={item.path}
+              class="flex px-10 py-3 text-white bg-redwood hover:bg-redwood-dark"
+            >
+              {item.title}
+            </a>
+          </li>
+        ) : (
           <li>
             <a
               href={item.path}
@@ -53,8 +65,8 @@ const menuItems = [
               {item.title}
             </a>
           </li>
-        </>
-      ))
+        )
+      )
     }
   </ul>
 </nav>

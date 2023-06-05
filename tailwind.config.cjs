@@ -18,7 +18,12 @@ module.exports = {
 			"white": "#fff",
 			"black": "151612",
 		},
-		extend: {},
+		extend: {
+			fontFamily: {
+				display: ["Noto Serif Display Variable", "serif"],
+				serif: ["Merriweather", "serif"],
+			},
+		},
 	},
 	plugins: [],
 }
