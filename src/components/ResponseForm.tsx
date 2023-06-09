@@ -1,4 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 
 interface IFormInput {
   rsvp: String;
@@ -8,7 +9,30 @@ interface IFormInput {
 
 const ResponseForm = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const [rsvpResponse, setRsvpResponse] = useState("");
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    const response = await fetch("/api/response", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    const resData = await response.json();
+    console.log(resData);
+  };
+
+  const isChildChecked = (event: HTMLLabelElement) => {
+    // console.log(event.currentTarget);
+    // event.currentTarget.classList.add("bg-redwood");
+    // if (element.querySelector("input:checked")) {
+    //   console.log("checked");
+    //   return true;
+    // }
+  };
+
+  function handleInputChange(event: Event) {
+    setRsvpResponse(event?.target?.value);
+  }
 
   return (
     <form
@@ -16,15 +40,35 @@ const ResponseForm = () => {
       aria-labelledby="rsvp-response-form"
       className="py-12"
     >
-      <fieldset className="mb-4">
-        <legend className="text-gray-700">
+      <fieldset className="mb-4 flex" onChange={(e) => handleInputChange(e)}>
+        <legend className="mb-1 text-gray-700">
           Will you be able to attend our wedding?
         </legend>
-        <label>
-          <input type="radio" name="radio" value="yes" /> Yes
+        <label
+          className={`w-full cursor-pointer border rounded p-3  ${
+            rsvpResponse === "yes" ? "bg-green-200" : "bg-gray-100"
+          }`}
+        >
+          <input
+            className="accent-green-600"
+            type="radio"
+            value="yes"
+            {...register("rsvp", { required: true })}
+          />
+          <span className="px-2">Yes</span>
         </label>
-        <label>
-          <input type="radio" name="radio" value="no" /> No
+        <label
+          className={`w-full cursor-pointer border rounded p-3 ${
+            rsvpResponse === "no" ? "bg-red-200" : "bg-gray-100"
+          }`}
+        >
+          <input
+            className="accent-red-600"
+            type="radio"
+            value="no"
+            {...register("rsvp", { required: true })}
+          />
+          <span className="px-2">No</span>
         </label>
       </fieldset>
       <span className="text-gray-700">Song Requests:</span>
