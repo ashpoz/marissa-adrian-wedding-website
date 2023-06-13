@@ -39,7 +39,7 @@ const ResponseForm = () => {
     >
       <fieldset className="mb-2 flex" onChange={(e) => handleInputChange(e)}>
         <legend className="mb-1 text-gray-700">
-          Will you be able to attend our wedding?
+          Will [NAME] be able to attend our wedding?
         </legend>
         <label
           className={`w-full cursor-pointer border rounded p-3  ${

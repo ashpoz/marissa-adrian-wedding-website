@@ -1,4 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useStore } from "@nanostores/react";
+import { formFields } from "../lib/formStore";
+
 import ErrorOutput from "./ErrorOutput";
 
 interface IFormInput {
@@ -12,6 +15,8 @@ const SearchForm = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
+  const $formFields = useStore(formFields);
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const response = await fetch("/api/searchName", {
       method: "POST",
@@ -19,8 +24,14 @@ const SearchForm = () => {
     });
 
     const resData = await response.json();
-    console.log(resData);
+    const { names } = resData;
+
+    if (names === undefined) return;
+
+    formFields.set({ ...$formFields, names: names });
   };
+
+  // console.log(useStore(formFields));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

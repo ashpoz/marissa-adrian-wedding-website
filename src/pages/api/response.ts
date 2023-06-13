@@ -2,8 +2,6 @@ import type { APIRoute } from "astro";
 import { google } from "googleapis";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 
-const sheets = google.sheets("v4");
-
 // Config variables
 const SPREADSHEET_ID = import.meta.env.GOOGLE_SHEETS_SPREADSHEET_ID;
 const SHEET_ID = import.meta.env.GOOGLE_SHEETS_SHEET_ID;
@@ -15,6 +13,9 @@ const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 export const post: APIRoute = async ({ request }) => {
   const data = await request.json();
   // console.log(data);
+
+  // use Name to lookup matching row/s in google sheets
+  // if row exists, update RSVP, note, and song requests
 
   try {
     await doc.useServiceAccountAuth({
@@ -29,11 +30,6 @@ export const post: APIRoute = async ({ request }) => {
   } catch (e) {
     console.error("Error: ", e);
   }
-
-  // TODO: validate the data
-  // TODO: send the data to a database
-  // TODO: return a success message
-  // TODO: return an error message if something goes wrong
 
   //const name = data.get("fullName");
   // Validate the data - you'll probably want to do more than this
