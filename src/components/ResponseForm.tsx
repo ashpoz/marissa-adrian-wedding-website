@@ -1,5 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+import ErrorOutput from "./ErrorOutput";
 
 interface IFormInput {
   rsvp: String;
@@ -8,7 +9,11 @@ interface IFormInput {
 }
 
 const ResponseForm = () => {
-  const { register, handleSubmit } = useForm<IFormInput>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>();
   const [rsvpResponse, setRsvpResponse] = useState("");
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -21,17 +26,9 @@ const ResponseForm = () => {
     console.log(resData);
   };
 
-  const isChildChecked = (event: HTMLLabelElement) => {
-    // console.log(event.currentTarget);
-    // event.currentTarget.classList.add("bg-redwood");
-    // if (element.querySelector("input:checked")) {
-    //   console.log("checked");
-    //   return true;
-    // }
-  };
-
   function handleInputChange(event: Event) {
-    setRsvpResponse(event?.target?.value);
+    const eventTarget = event.target as HTMLInputElement;
+    setRsvpResponse(eventTarget?.value);
   }
 
   return (
@@ -40,7 +37,7 @@ const ResponseForm = () => {
       aria-labelledby="rsvp-response-form"
       className="py-12"
     >
-      <fieldset className="mb-4 flex" onChange={(e) => handleInputChange(e)}>
+      <fieldset className="mb-2 flex" onChange={(e) => handleInputChange(e)}>
         <legend className="mb-1 text-gray-700">
           Will you be able to attend our wedding?
         </legend>
@@ -71,22 +68,25 @@ const ResponseForm = () => {
           <span className="px-2">No</span>
         </label>
       </fieldset>
+      <ErrorOutput errType={errors?.rsvp?.type} />
       <span className="text-gray-700">Song Requests:</span>
       <input
         type="text"
         className="mt-1 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
         placeholder="Any songs you'd like to hear?"
-        required
         {...register("songRequests")}
       />
+      <ErrorOutput errType={errors?.songRequests?.type} />
+
       <span className="text-gray-700">Note:</span>
       <input
         type="text"
         className="mt-1 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
         placeholder="Feel free to leave any newlywed advice for us!"
-        required
         {...register("note")}
       />
+      <ErrorOutput errType={errors?.note?.type} />
+
       <input
         className="flex px-10 mt-3 py-3 text-white bg-redwood hover:bg-redwood-dark cursor-pointer"
         type="submit"

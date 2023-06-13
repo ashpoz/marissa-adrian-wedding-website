@@ -13,25 +13,26 @@ export const post: APIRoute = async ({ request }) => {
   const data = await request.json();
   const searchedName = data.fullName;
 
+  // get all names from db
   const guestlistNames = await getGuestlistNames();
 
-  // TODO: check if the name is in the database
-  const foundNames = guestlistNames.filter((a) => a.includes(searchedName));
+  // filter names that start with searched name
+  const foundNames = guestlistNames.filter((a) => a.startsWith(searchedName));
 
-  console.log(foundNames);
-
-  // TODO: validate the data
-  // TODO: if it is, return the data
-  // TODO: if it isn't, return an error
-
-  //const name = data.get("fullName");
-  // Validate the data - you'll probably want to do more than this
   if (foundNames.length === 0) {
     return new Response(
       JSON.stringify({
         message: "No names found!",
       }),
-      { status: 400 }
+      { status: 404 }
+    );
+  } else if (foundNames.length > 1) {
+    return new Response(
+      JSON.stringify({
+        message: "More than one name found!",
+        names: foundNames,
+      }),
+      { status: 200 }
     );
   }
   // Do something with the data, then return a success response
