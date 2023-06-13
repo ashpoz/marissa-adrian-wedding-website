@@ -28,7 +28,7 @@ const SearchForm = () => {
     const { matches } = resData;
 
     if (matches === undefined) {
-      return;
+      formFields.set({ ...$formFields, nameMatches: [] });
     } else if (matches.length > 1) {
       formFields.set({ ...$formFields, nameMatches: matches });
     } else if (matches.length === 1) {
@@ -105,6 +105,27 @@ const SearchForm = () => {
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+        {/* if no match */}
+        {$formFields.nameMatches && $formFields.nameMatches.length === 0 && (
+          <div>
+            <p className="p-3">
+              Hmmm sorry, there were no matches for your search.{" "}
+              <a href="" className="underline text-redwood">
+                Please try your search again
+              </a>
+            </p>
+            <p className="p-3">
+              Having issues finding your name? Please email{" "}
+              <a
+                href="mailto:marissa.adrian.wedding@gmail.com"
+                className="underline text-redwood"
+              >
+                marissa.adrian.wedding@gmail.com
+              </a>{" "}
+              for assistance.
+            </p>
           </div>
         )}
       </div>
