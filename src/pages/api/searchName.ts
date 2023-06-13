@@ -1,14 +1,6 @@
 import type { APIRoute } from "astro";
 import { getGuestlistNames } from "../../firebase/guestlist";
 
-// const admin = require("firebase-admin");
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   // The database URL depends on the location of the database
-//   databaseURL: "https://DATABASE_NAME.firebaseio.com",
-// });
-
 export const post: APIRoute = async ({ request }) => {
   const data = await request.json();
   const searchedName = data.fullName;

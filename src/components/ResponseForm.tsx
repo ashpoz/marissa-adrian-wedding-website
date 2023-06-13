@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import ErrorOutput from "./ErrorOutput";
 
 interface IFormInput {
@@ -26,7 +26,7 @@ const ResponseForm = () => {
     console.log(resData);
   };
 
-  function handleInputChange(event: Event) {
+  function handleInputChange(event: FormEvent) {
     const eventTarget = event.target as HTMLInputElement;
     setRsvpResponse(eventTarget?.value);
   }
