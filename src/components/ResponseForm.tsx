@@ -54,6 +54,7 @@ const ResponseForm = () => {
   useEffect(() => {
     if ($formFields.name) {
       console.log($formFields.party);
+      // TODO: I need to find the rsvps for each person in the party
       // getSpreadsheetRow($formFields.name);
     }
   }, [$formFields.name]);
@@ -68,7 +69,6 @@ const ResponseForm = () => {
         <strong className="text-2xl">{$formFields.name}</strong>
       </h3>
       {/* if they have a wedding party, incl. below text and map() fn */}
-
       {$formFields.party && $formFields.party.length > 1 && (
         <div>
           <p>Your wedding party:</p>
