@@ -53,7 +53,7 @@ const ResponseForm = () => {
 
   useEffect(() => {
     if ($formFields.name) {
-      console.log($formFields.name);
+      console.log($formFields.party);
       // getSpreadsheetRow($formFields.name);
     }
   }, [$formFields.name]);
@@ -68,40 +68,93 @@ const ResponseForm = () => {
         <strong className="text-2xl">{$formFields.name}</strong>
       </h3>
       {/* if they have a wedding party, incl. below text and map() fn */}
-      <p>Your wedding party:</p>
-      <fieldset className="mb-2 flex" onChange={(e) => handleInputChange(e)}>
-        <legend className="mb-1 text-gray-700">
-          Will <strong>{$formFields.name}</strong> be able to attend our
-          wedding?
-        </legend>
-        <label
-          className={`w-full cursor-pointer border rounded p-3  ${
-            rsvpResponse === "yes" ? "bg-green-200" : "bg-gray-100"
-          }`}
-        >
-          <input
-            className="accent-green-600"
-            type="radio"
-            value="yes"
-            {...register("rsvp", { required: true })}
-          />
-          <span className="px-2">Yes</span>
-        </label>
-        <label
-          className={`w-full cursor-pointer border rounded p-3 ${
-            rsvpResponse === "no" ? "bg-red-200" : "bg-gray-100"
-          }`}
-        >
-          <input
-            className="accent-red-600"
-            type="radio"
-            value="no"
-            {...register("rsvp", { required: true })}
-          />
-          <span className="px-2">No</span>
-        </label>
-      </fieldset>
-      <ErrorOutput errType={errors?.rsvp?.type} />
+
+      {$formFields.party && $formFields.party.length > 1 && (
+        <div>
+          <p>Your wedding party:</p>
+          {$formFields.party.map((member, index) => (
+            <>
+              <fieldset
+                className="mb-2 flex"
+                onChange={(e) => handleInputChange(e)}
+              >
+                <legend className="mb-1 text-gray-700">
+                  Will <strong>{member}</strong> be able to attend our wedding?
+                </legend>
+                <label
+                  className={`w-full cursor-pointer border rounded p-3  ${
+                    rsvpResponse === "yes" ? "bg-green-200" : "bg-gray-100"
+                  }`}
+                >
+                  <input
+                    className="accent-green-600"
+                    type="radio"
+                    value="yes"
+                    {...register("rsvp", { required: true })}
+                  />
+                  <span className="px-2">Yes</span>
+                </label>
+                <label
+                  className={`w-full cursor-pointer border rounded p-3 ${
+                    rsvpResponse === "no" ? "bg-red-200" : "bg-gray-100"
+                  }`}
+                >
+                  <input
+                    className="accent-red-600"
+                    type="radio"
+                    value="no"
+                    {...register("rsvp", { required: true })}
+                  />
+                  <span className="px-2">No</span>
+                </label>
+              </fieldset>
+              <ErrorOutput errType={errors?.rsvp?.type} />
+            </>
+          ))}
+        </div>
+      )}
+      {/* if only 1 person in party */}
+      {$formFields.party && $formFields.party.length <= 1 && (
+        <>
+          <fieldset
+            className="mb-2 flex"
+            onChange={(e) => handleInputChange(e)}
+          >
+            <legend className="mb-1 text-gray-700">
+              Will <strong>{$formFields.name}</strong> be able to attend our
+              wedding?
+            </legend>
+            <label
+              className={`w-full cursor-pointer border rounded p-3  ${
+                rsvpResponse === "yes" ? "bg-green-200" : "bg-gray-100"
+              }`}
+            >
+              <input
+                className="accent-green-600"
+                type="radio"
+                value="yes"
+                {...register("rsvp", { required: true })}
+              />
+              <span className="px-2">Yes</span>
+            </label>
+            <label
+              className={`w-full cursor-pointer border rounded p-3 ${
+                rsvpResponse === "no" ? "bg-red-200" : "bg-gray-100"
+              }`}
+            >
+              <input
+                className="accent-red-600"
+                type="radio"
+                value="no"
+                {...register("rsvp", { required: true })}
+              />
+              <span className="px-2">No</span>
+            </label>
+          </fieldset>
+          <ErrorOutput errType={errors?.rsvp?.type} />
+        </>
+      )}
+
       <span className="text-gray-700">Song Requests:</span>
       <input
         type="text"

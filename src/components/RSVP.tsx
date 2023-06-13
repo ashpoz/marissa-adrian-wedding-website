@@ -14,7 +14,7 @@ const RSVP = () => {
 
   useEffect(() => {
     if ($formFields.name) {
-      console.log($formFields.name);
+      console.log($formFields);
     }
   }, [$formFields.name]);
 

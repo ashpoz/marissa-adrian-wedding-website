@@ -25,32 +25,37 @@ const SearchForm = () => {
     });
 
     const resData = await response.json();
-    const { matches } = resData;
+    const { results } = resData;
 
-    if (matches === undefined) {
-      formFields.set({ ...$formFields, nameMatches: [] });
-    } else if (matches.length > 1) {
-      formFields.set({ ...$formFields, nameMatches: matches });
-    } else if (matches.length === 1) {
+    console.log(resData);
+
+    if (results.length === 0) {
+      formFields.set({ ...$formFields, results: [] });
+    } else if (results.length > 1) {
+      formFields.set({ ...$formFields, results: results });
+    } else if (results.length === 1) {
       formFields.set({
         ...$formFields,
-        nameMatches: matches,
-        name: matches[0],
+        results: results[0],
+        name: results[0].name,
+        party: results[0].party,
       });
     }
   };
 
   useEffect(() => {
-    if ($formFields.nameMatches) {
-    }
-  }, [$formFields.nameMatches]);
+    // console.log($formFields.results);
+    // if ($formFields.results?.length === 0) {
+    //   console.log("test");
+    // }
+  }, [$formFields.results]);
 
   // console.log(useStore(formFields));
 
   return (
     <>
       {/* If no matches, show search form */}
-      {!$formFields.nameMatches && (
+      {!$formFields.results && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <span className="text-gray-700">Full Name:</span>
           <input
@@ -72,7 +77,7 @@ const SearchForm = () => {
       )}
       {/* if more than 1 match */}
       <div className="text-center pt-6 pb-6">
-        {$formFields.nameMatches && $formFields.nameMatches.length > 1 && (
+        {$formFields.results && $formFields.results.length > 1 && (
           <div>
             <p className="text-gray-700 mb-6">
               We found more than one person with that name. Please select your
@@ -84,19 +89,20 @@ const SearchForm = () => {
               ):
             </p>
             <ul>
-              {$formFields.nameMatches.map((name, index) => (
+              {$formFields.results.map((result, index) => (
                 <li
                   key={index}
                   className="pt-2 pb-2 flex border-b border-gray-700"
                 >
-                  <span>{name}</span>
+                  <span>{result.name}</span>
                   <button
                     className="ml-auto underline text-redwood"
                     onClick={(e) => {
                       e.preventDefault();
                       formFields.set({
                         ...$formFields,
-                        name: name?.toString(),
+                        name: result.name?.toString(),
+                        party: result.party,
                       });
                     }}
                   >
@@ -108,7 +114,7 @@ const SearchForm = () => {
           </div>
         )}
         {/* if no match */}
-        {$formFields.nameMatches && $formFields.nameMatches.length === 0 && (
+        {$formFields.results && $formFields.results.length === 0 && (
           <div>
             <p className="p-3">
               Hmmm sorry, there were no matches for your search.{" "}

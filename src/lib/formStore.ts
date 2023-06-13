@@ -19,7 +19,7 @@ import { atom } from "nanostores";
 // };
 
 interface FormFields {
-  nameMatches?: Array<string[]>;
+  results?: Array<string[]>;
   name?: String;
   attending?: Boolean;
   note?: String;
