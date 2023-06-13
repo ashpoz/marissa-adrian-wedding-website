@@ -1,5 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { useStore } from "@nanostores/react";
+import { formFields } from "../lib/formStore";
 import ErrorOutput from "./ErrorOutput";
 
 interface IFormInput {
@@ -16,6 +18,8 @@ const ResponseForm = () => {
   } = useForm<IFormInput>();
   const [rsvpResponse, setRsvpResponse] = useState("");
 
+  const $formFields = useStore(formFields);
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const response = await fetch("/api/response", {
       method: "POST",
@@ -31,15 +35,44 @@ const ResponseForm = () => {
     setRsvpResponse(eventTarget?.value);
   }
 
+  const getSpreadsheetRow = async (name: String) => {
+    const response = await fetch("/api/sheets/get", {
+      method: "POST",
+      body: JSON.stringify(name),
+    });
+    return response.json();
+  };
+
+  const updateSpreadsheetRows = async (name: String) => {
+    const response = await fetch("/api/sheets/update", {
+      method: "POST",
+      body: JSON.stringify(name),
+    });
+    return response.json();
+  };
+
+  useEffect(() => {
+    if ($formFields.name) {
+      console.log($formFields.name);
+      // getSpreadsheetRow($formFields.name);
+    }
+  }, [$formFields.name]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       aria-labelledby="rsvp-response-form"
       className="py-12"
     >
+      <h3>
+        <strong className="text-2xl">{$formFields.name}</strong>
+      </h3>
+      {/* if they have a wedding party, incl. below text and map() fn */}
+      <p>Your wedding party:</p>
       <fieldset className="mb-2 flex" onChange={(e) => handleInputChange(e)}>
         <legend className="mb-1 text-gray-700">
-          Will [NAME] be able to attend our wedding?
+          Will <strong>{$formFields.name}</strong> be able to attend our
+          wedding?
         </legend>
         <label
           className={`w-full cursor-pointer border rounded p-3  ${

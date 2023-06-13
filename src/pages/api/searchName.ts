@@ -22,7 +22,7 @@ export const post: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({
         message: "More than one name found!",
-        names: foundNames,
+        matches: foundNames,
       }),
       { status: 200 }
     );
@@ -31,7 +31,7 @@ export const post: APIRoute = async ({ request }) => {
   return new Response(
     JSON.stringify({
       message: "Success!",
-      names: foundNames,
+      matches: foundNames,
     }),
     { status: 200 }
   );

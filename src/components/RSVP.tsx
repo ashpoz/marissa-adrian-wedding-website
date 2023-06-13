@@ -3,6 +3,7 @@ import { formFields } from "../lib/formStore";
 
 import ResponseForm from "./ResponseForm";
 import SearchForm from "./SearchForm";
+import { useEffect } from "react";
 
 // TODO: figure out how state will be managed
 // TODO: should allow user to search for name or name in their party
@@ -10,7 +11,12 @@ import SearchForm from "./SearchForm";
 
 const RSVP = () => {
   const $formFields = useStore(formFields);
-  console.log($formFields.names);
+
+  useEffect(() => {
+    if ($formFields.name) {
+      console.log($formFields.name);
+    }
+  }, [$formFields.name]);
 
   // TODO: figure out how Im gonna use hooks
   // basically, I need the ResponseForm to render when a name is found
@@ -18,8 +24,8 @@ const RSVP = () => {
 
   return (
     <>
-      <SearchForm />
-      {$formFields.names && <ResponseForm />}
+      {!$formFields.name && <SearchForm />}
+      {$formFields.name && <ResponseForm />}
     </>
   );
 };
