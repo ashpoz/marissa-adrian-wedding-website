@@ -21,6 +21,7 @@ export const post: APIRoute = async ({ request }) => {
   return new Response(
     JSON.stringify({
       message: "Success!",
+      body: data,
     }),
     { status: 200 }
   );

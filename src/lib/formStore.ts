@@ -23,7 +23,7 @@ interface FormFields {
   name?: String;
   attending?: Boolean;
   note?: String;
-  songRequest?: String;
+  songRequests?: String;
   party?: Array<Object>;
   group?: Array<string[]>;
 }

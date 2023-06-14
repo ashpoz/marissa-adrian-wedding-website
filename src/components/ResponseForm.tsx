@@ -5,9 +5,9 @@ import { formFields } from "../lib/formStore";
 import ErrorOutput from "./ErrorOutput";
 
 interface IFormInput {
-  rsvp: String;
-  songRequests: String;
-  note: String;
+  attending: String;
+  songRequests?: Array<String>;
+  note?: String;
 }
 
 const ResponseForm = () => {
@@ -16,25 +16,33 @@ const ResponseForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>();
-  const [rsvpResponse, setRsvpResponse] = useState({});
+  const [attendingResponse, setAttendingResponse] = useState({});
 
   const $formFields = useStore(formFields);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    // TODO: update formFields store with response data
+
+    formFields.set({
+      ...$formFields,
+      note: data.note,
+      songRequests: data.songRequests,
+    });
+
     const response = await fetch("/api/response", {
       method: "POST",
       body: JSON.stringify(data),
     });
 
     const resData = await response.json();
-    console.log(resData);
+    // console.log(resData);
   };
 
   // TODO: fix radio selections
   function handleInputChange(event: FormEvent) {
     const eventTarget = event.target as HTMLInputElement;
-    setRsvpResponse({
-      ...rsvpResponse,
+    setAttendingResponse({
+      ...attendingResponse,
       [eventTarget.name]: eventTarget.value,
     });
   }
@@ -53,13 +61,14 @@ const ResponseForm = () => {
   };
 
   useEffect(() => {
-    // TODO: popuplate attending rsvp radios
+    // TODO: popuplate attending attending radios
+    console.log($formFields);
   }, [$formFields.name]);
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      aria-labelledby="rsvp-response-form"
+      aria-labelledby="attending-response-form"
       className="py-12"
     >
       <h3>
@@ -74,7 +83,7 @@ const ResponseForm = () => {
               <fieldset
                 className="mb-2 flex"
                 onChange={(e) => {
-                  // console.log(getFieldState(`rsvp.${index}`));
+                  // console.log(getFieldState(`attending.${index}`));
                   handleInputChange(e);
                 }}
               >
@@ -84,7 +93,7 @@ const ResponseForm = () => {
                 </legend>
                 <label
                   className={`w-full cursor-pointer border rounded p-3  ${
-                    rsvpResponse[`rsvp.${index}`] === "yes"
+                    attendingResponse[`attending.${index}`] === "yes"
                       ? "bg-green-200"
                       : "bg-gray-100"
                   }`}
@@ -93,13 +102,15 @@ const ResponseForm = () => {
                     className="accent-green-600"
                     type="radio"
                     value="yes"
-                    {...register(`rsvp.${index}` as const, { required: true })}
+                    {...register(`attending.${index}` as const, {
+                      required: true,
+                    })}
                   />
                   <span className="px-2">Yes</span>
                 </label>
                 <label
                   className={`w-full cursor-pointer border rounded p-3 ${
-                    rsvpResponse[`rsvp.${index}`] === "no"
+                    attendingResponse[`attending.${index}`] === "no"
                       ? "bg-red-200"
                       : "bg-gray-100"
                   }`}
@@ -108,12 +119,12 @@ const ResponseForm = () => {
                     className="accent-red-600"
                     type="radio"
                     value="no"
-                    {...register(`rsvp.${index}`, { required: true })}
+                    {...register(`attending.${index}`, { required: true })}
                   />
                   <span className="px-2">No</span>
                 </label>
               </fieldset>
-              <ErrorOutput errType={errors?.rsvp?.type} />
+              <ErrorOutput errType={errors?.attending?.type} />
             </div>
           ))}
         </div>
@@ -131,32 +142,36 @@ const ResponseForm = () => {
             </legend>
             <label
               className={`w-full cursor-pointer border rounded p-3  ${
-                rsvpResponse === "yes" ? "bg-green-200" : "bg-gray-100"
+                attendingResponse["attending"] === "yes"
+                  ? "bg-green-200"
+                  : "bg-gray-100"
               }`}
             >
               <input
                 className="accent-green-600"
                 type="radio"
                 value="yes"
-                {...register("rsvp", { required: true })}
+                {...register("attending", { required: true })}
               />
               <span className="px-2">Yes</span>
             </label>
             <label
               className={`w-full cursor-pointer border rounded p-3 ${
-                rsvpResponse === "no" ? "bg-red-200" : "bg-gray-100"
+                attendingResponse["attending"] === "no"
+                  ? "bg-red-200"
+                  : "bg-gray-100"
               }`}
             >
               <input
                 className="accent-red-600"
                 type="radio"
                 value="no"
-                {...register("rsvp", { required: true })}
+                {...register("attending", { required: true })}
               />
               <span className="px-2">No</span>
             </label>
           </fieldset>
-          <ErrorOutput errType={errors?.rsvp?.type} />
+          <ErrorOutput errType={errors?.attending?.type} />
         </>
       )}
 
