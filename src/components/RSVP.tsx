@@ -16,10 +16,6 @@ const RSVP = () => {
     console.log($formFields);
   }, [$formFields.name]);
 
-  // TODO: figure out how Im gonna use hooks
-  // basically, I need the ResponseForm to render when a name is found
-  // Also, need to hide the search form when a name is found
-
   return (
     <>
       {!$formFields.name && <SearchForm />}

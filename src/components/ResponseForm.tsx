@@ -16,7 +16,7 @@ const ResponseForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>();
-  const [rsvpResponse, setRsvpResponse] = useState("");
+  const [rsvpResponse, setRsvpResponse] = useState({});
 
   const $formFields = useStore(formFields);
 
@@ -33,7 +33,10 @@ const ResponseForm = () => {
   // TODO: fix radio selections
   function handleInputChange(event: FormEvent) {
     const eventTarget = event.target as HTMLInputElement;
-    setRsvpResponse(eventTarget?.value);
+    setRsvpResponse({
+      ...rsvpResponse,
+      [eventTarget.name]: eventTarget.value,
+    });
   }
 
   const updateRSVPState = async (partyObj: Promise) => {
@@ -70,7 +73,10 @@ const ResponseForm = () => {
             <div key={index}>
               <fieldset
                 className="mb-2 flex"
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e) => {
+                  // console.log(getFieldState(`rsvp.${index}`));
+                  handleInputChange(e);
+                }}
               >
                 <legend className="mb-1 text-gray-700">
                   Will <strong>{member.name}</strong> be able to attend our
@@ -78,27 +84,31 @@ const ResponseForm = () => {
                 </legend>
                 <label
                   className={`w-full cursor-pointer border rounded p-3  ${
-                    rsvpResponse === "yes" ? "bg-green-200" : "bg-gray-100"
+                    rsvpResponse[`rsvp.${index}`] === "yes"
+                      ? "bg-green-200"
+                      : "bg-gray-100"
                   }`}
                 >
                   <input
                     className="accent-green-600"
                     type="radio"
                     value="yes"
-                    {...register(`rsvp-${index}`, { required: true })}
+                    {...register(`rsvp.${index}` as const, { required: true })}
                   />
                   <span className="px-2">Yes</span>
                 </label>
                 <label
                   className={`w-full cursor-pointer border rounded p-3 ${
-                    rsvpResponse === "no" ? "bg-red-200" : "bg-gray-100"
+                    rsvpResponse[`rsvp.${index}`] === "no"
+                      ? "bg-red-200"
+                      : "bg-gray-100"
                   }`}
                 >
                   <input
                     className="accent-red-600"
                     type="radio"
                     value="no"
-                    {...register(`rsvp-${index}`, { required: true })}
+                    {...register(`rsvp.${index}`, { required: true })}
                   />
                   <span className="px-2">No</span>
                 </label>
