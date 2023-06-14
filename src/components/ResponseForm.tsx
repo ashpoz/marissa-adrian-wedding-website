@@ -30,17 +30,15 @@ const ResponseForm = () => {
     console.log(resData);
   };
 
+  // TODO: fix radio selections
   function handleInputChange(event: FormEvent) {
     const eventTarget = event.target as HTMLInputElement;
     setRsvpResponse(eventTarget?.value);
   }
 
-  const getSpreadsheetRow = async (name: String) => {
-    const response = await fetch("/api/sheets/get", {
-      method: "POST",
-      body: JSON.stringify(name),
-    });
-    return response.json();
+  const updateRSVPState = async (partyObj: Promise) => {
+    const data = await partyObj;
+    console.log(data);
   };
 
   const updateSpreadsheetRows = async (name: String) => {
@@ -52,11 +50,7 @@ const ResponseForm = () => {
   };
 
   useEffect(() => {
-    if ($formFields.name) {
-      console.log($formFields.party);
-      // TODO: I need to find the rsvps for each person in the party
-      // getSpreadsheetRow($formFields.name);
-    }
+    // TODO: popuplate attending rsvp radios
   }, [$formFields.name]);
 
   return (
@@ -73,13 +67,14 @@ const ResponseForm = () => {
         <div>
           <p>Your wedding party:</p>
           {$formFields.party.map((member, index) => (
-            <>
+            <div key={index}>
               <fieldset
                 className="mb-2 flex"
                 onChange={(e) => handleInputChange(e)}
               >
                 <legend className="mb-1 text-gray-700">
-                  Will <strong>{member}</strong> be able to attend our wedding?
+                  Will <strong>{member.name}</strong> be able to attend our
+                  wedding?
                 </legend>
                 <label
                   className={`w-full cursor-pointer border rounded p-3  ${
@@ -90,7 +85,7 @@ const ResponseForm = () => {
                     className="accent-green-600"
                     type="radio"
                     value="yes"
-                    {...register("rsvp", { required: true })}
+                    {...register(`rsvp-${index}`, { required: true })}
                   />
                   <span className="px-2">Yes</span>
                 </label>
@@ -103,13 +98,13 @@ const ResponseForm = () => {
                     className="accent-red-600"
                     type="radio"
                     value="no"
-                    {...register("rsvp", { required: true })}
+                    {...register(`rsvp-${index}`, { required: true })}
                   />
                   <span className="px-2">No</span>
                 </label>
               </fieldset>
               <ErrorOutput errType={errors?.rsvp?.type} />
-            </>
+            </div>
           ))}
         </div>
       )}

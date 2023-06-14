@@ -3,7 +3,6 @@ import { useStore } from "@nanostores/react";
 import { formFields } from "../lib/formStore";
 
 import ErrorOutput from "./ErrorOutput";
-import { useEffect } from "react";
 
 interface IFormInput {
   fullName: String;
@@ -19,38 +18,41 @@ const SearchForm = () => {
   const $formFields = useStore(formFields);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const response = await fetch("/api/searchName", {
+    const searchName = await fetch("/api/searchName", {
       method: "POST",
       body: JSON.stringify(data),
     });
 
-    const resData = await response.json();
-    const { results } = resData;
+    const searchData = await searchName.json();
 
-    console.log(resData);
+    console.log(searchData);
 
-    if (results.length === 0) {
-      formFields.set({ ...$formFields, results: [] });
-    } else if (results.length > 1) {
-      formFields.set({ ...$formFields, results: results });
-    } else if (results.length === 1) {
+    // if resData has matches key
+    if (searchData.results && searchData.results.length === 1) {
+      const searchParty = await fetch("/api/searchParty", {
+        method: "POST",
+        body: JSON.stringify(searchData.results),
+      });
+      const partyData = await searchParty.json();
+
       formFields.set({
         ...$formFields,
-        results: results[0],
-        name: results[0].name,
-        party: results[0].party,
+        results: searchData.results,
+        name: searchData.results[0].name,
+        party: partyData.party,
+      });
+    } else if (searchData.results && searchData.results.length > 1) {
+      formFields.set({
+        ...$formFields,
+        results: searchData.results,
+      });
+    } else {
+      formFields.set({
+        ...$formFields,
+        results: [],
       });
     }
   };
-
-  useEffect(() => {
-    // console.log($formFields.results);
-    // if ($formFields.results?.length === 0) {
-    //   console.log("test");
-    // }
-  }, [$formFields.results]);
-
-  // console.log(useStore(formFields));
 
   return (
     <>
@@ -99,11 +101,9 @@ const SearchForm = () => {
                     className="ml-auto underline text-redwood"
                     onClick={(e) => {
                       e.preventDefault();
-                      formFields.set({
-                        ...$formFields,
-                        name: result.name?.toString(),
-                        party: result.party,
-                      });
+
+                      // resubmit form with selected name
+                      onSubmit({ fullName: result.name });
                     }}
                   >
                     Select

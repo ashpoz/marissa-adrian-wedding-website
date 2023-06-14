@@ -24,7 +24,8 @@ interface FormFields {
   attending?: Boolean;
   note?: String;
   songRequest?: String;
-  party?: Array<string[]>;
+  party?: Array<Object>;
+  group?: Array<string[]>;
 }
 
 // testing state

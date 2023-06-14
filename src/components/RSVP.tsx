@@ -13,9 +13,7 @@ const RSVP = () => {
   const $formFields = useStore(formFields);
 
   useEffect(() => {
-    if ($formFields.name) {
-      console.log($formFields);
-    }
+    console.log($formFields);
   }, [$formFields.name]);
 
   // TODO: figure out how Im gonna use hooks

@@ -14,32 +14,28 @@ export const post: APIRoute = async ({ request }) => {
     a.name.startsWith(searchedName)
   );
 
-  // const partyNames = await getRSVPs(foundNames);
-
-  console.log(foundNames);
-
-  // if (foundNames.length === 0) {
-  //   return new Response(
-  //     JSON.stringify({
-  //       message: "No names found!",
-  //     }),
-  //     { status: 404 }
-  //   );
-  // } else if (foundNames.length > 1) {
-  //   return new Response(
-  //     JSON.stringify({
-  //       message: "More than one name found!",
-  //       matches: foundNames,
-  //     }),
-  //     { status: 200 }
-  //   );
-  // }
-  // Do something with the data, then return a success response
-  return new Response(
-    JSON.stringify({
-      message: "Success!",
-      results: foundNames,
-    }),
-    { status: 200 }
-  );
+  if (foundNames.length === 1) {
+    return new Response(
+      JSON.stringify({
+        message: "Success!",
+        results: foundNames,
+      }),
+      { status: 200 }
+    );
+  } else if (foundNames.length === 0) {
+    return new Response(
+      JSON.stringify({
+        message: "No names found!",
+      }),
+      { status: 404 }
+    );
+  } else if (foundNames.length > 1) {
+    return new Response(
+      JSON.stringify({
+        message: "More than one name found!",
+        results: foundNames,
+      }),
+      { status: 200 }
+    );
+  }
 };
