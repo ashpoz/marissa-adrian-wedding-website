@@ -21,12 +21,18 @@ const ResponseForm = () => {
   const $formFields = useStore(formFields);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    // TODO: update formFields store with response data
+    const partyArr = $formFields.party.map((member, index) => {
+      return {
+        ...member,
+        attending: data.attending[index],
+      };
+    });
 
     formFields.set({
       ...$formFields,
       note: data.note,
       songRequests: data.songRequests,
+      party: partyArr,
     });
 
     const response = await fetch("/api/response", {
@@ -35,10 +41,10 @@ const ResponseForm = () => {
     });
 
     const resData = await response.json();
-    // console.log(resData);
+
+    return resData;
   };
 
-  // TODO: fix radio selections
   function handleInputChange(event: FormEvent) {
     const eventTarget = event.target as HTMLInputElement;
     setAttendingResponse({
