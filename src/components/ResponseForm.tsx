@@ -37,7 +37,13 @@ const ResponseForm = () => {
 
     const response = await fetch("/api/response", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        id: $formFields.id,
+        name: $formFields.name,
+        note: data.note,
+        songRequests: data.songRequests,
+        party: partyArr,
+      }),
     });
 
     const resData = await response.json();

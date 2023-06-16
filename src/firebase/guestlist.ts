@@ -6,6 +6,7 @@ export const getGuestlistNames = async () => {
   const guestListArray: Array<String> = [];
 
   ref.orderByChild("Name").on("child_added", (snapshot) => {
+    let dataId = snapshot.val()["Id"];
     let name = snapshot.val()["Name"];
     let group = snapshot.val()["Group"];
     group = group ? group.toString().split(",") : [];
@@ -14,7 +15,7 @@ export const getGuestlistNames = async () => {
     // TODO: rebuild party array to include attending status
     // basically you'll loop thru party array, and then for each name in firebase, you'll check if the name is in the party array, and if it is, you'll add the attending status to the party array
 
-    guestListArray.push({ name, group, attending });
+    guestListArray.push({ id: dataId, name, group, attending });
   });
   return guestListArray;
 };
@@ -28,10 +29,11 @@ export const getRSVPs = async (arr: Array<String>) => {
       .orderByChild("Name")
       .equalTo(name)
       .on("child_added", (snapshot) => {
+        let dataId = snapshot.val()["Id"];
         let name = snapshot.val()["Name"];
         let attending = snapshot.val()["RSVP"];
 
-        partyArray.push({ name, attending });
+        partyArray.push({ id: dataId, name, attending });
       });
 
     // console.log(partyArray);
