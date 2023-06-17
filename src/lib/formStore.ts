@@ -1,23 +1,5 @@
 import { atom } from "nanostores";
 
-// interface FormFields {
-//   names?: Array<string[]>;
-// }
-
-// const state = {
-//   nameMatches: false,
-//   name: "",
-//   attending: null,
-//   note: "",
-//   songRequest: "",
-//   party: [
-//     {
-//       name: "",
-//       attending: null,
-//     },
-//   ],
-// };
-
 interface FormFields {
   results?: Array<string[]>;
   name?: String;
@@ -26,6 +8,7 @@ interface FormFields {
   songRequests?: String;
   party?: Array<Object>;
   group?: Array<string[]>;
+  completed?: Boolean;
 }
 
 // testing state

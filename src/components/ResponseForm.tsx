@@ -48,7 +48,14 @@ const ResponseForm = () => {
 
     const resData = await response.json();
 
-    return resData;
+    if (resData.status === 200) {
+      formFields.set({
+        ...$formFields,
+        completed: true,
+      });
+    } else {
+      // TODO: need to dispaly error to user
+    }
   };
 
   function handleInputChange(event: FormEvent) {
@@ -58,19 +65,6 @@ const ResponseForm = () => {
       [eventTarget.name]: eventTarget.value,
     });
   }
-
-  const updateRSVPState = async (partyObj: Promise) => {
-    const data = await partyObj;
-    console.log(data);
-  };
-
-  const updateSpreadsheetRows = async (name: String) => {
-    const response = await fetch("/api/sheets/update", {
-      method: "POST",
-      body: JSON.stringify(name),
-    });
-    return response.json();
-  };
 
   useEffect(() => {
     // TODO: popuplate attending attending radios
