@@ -7,6 +7,7 @@ export const post: APIRoute = async ({ request }) => {
   if (!data[0]?.group) {
     return new Response(
       JSON.stringify({
+        status: "fail",
         message: "No names found!",
       }),
       { status: 404 }
@@ -16,8 +17,10 @@ export const post: APIRoute = async ({ request }) => {
 
     return new Response(
       JSON.stringify({
-        message: "Success!",
-        party,
+        status: "success",
+        data: {
+          party,
+        },
       }),
       { status: 200 }
     );

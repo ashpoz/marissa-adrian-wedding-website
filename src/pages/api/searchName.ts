@@ -17,25 +17,30 @@ export const post: APIRoute = async ({ request }) => {
   if (foundNames.length === 1) {
     return new Response(
       JSON.stringify({
-        message: "Success!",
-        results: foundNames,
+        status: "success",
+        data: {
+          results: foundNames,
+        },
+      }),
+      { status: 200 }
+    );
+  } else if (foundNames.length > 1) {
+    return new Response(
+      JSON.stringify({
+        status: "success",
+        data: {
+          results: foundNames,
+        },
       }),
       { status: 200 }
     );
   } else if (foundNames.length === 0) {
     return new Response(
       JSON.stringify({
+        status: "fail",
         message: "No names found!",
       }),
       { status: 404 }
-    );
-  } else if (foundNames.length > 1) {
-    return new Response(
-      JSON.stringify({
-        message: "More than one name found!",
-        results: foundNames,
-      }),
-      { status: 200 }
     );
   }
 };

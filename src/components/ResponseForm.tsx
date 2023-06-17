@@ -11,14 +11,16 @@ interface IFormInput {
 }
 
 const ResponseForm = () => {
+  const $formFields = useStore(formFields);
+
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<IFormInput>();
   const [attendingResponse, setAttendingResponse] = useState({});
-
-  const $formFields = useStore(formFields);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const partyArr = $formFields.party.map((member, index) => {
@@ -48,32 +50,63 @@ const ResponseForm = () => {
 
     const resData = await response.json();
 
-    if (resData.status === 200) {
+    console.log(resData);
+
+    if (resData.status === "success") {
       formFields.set({
         ...$formFields,
         completed: true,
       });
     } else {
-      // TODO: need to dispaly error to user
+      // TODO: need to display error to user
+      throw new Error("Something went wrong");
     }
   };
 
-  function handleInputChange(event: FormEvent) {
-    const eventTarget = event.target as HTMLInputElement;
-    setAttendingResponse({
-      ...attendingResponse,
-      [eventTarget.name]: eventTarget.value,
+  const onError = (errors: any, e: any) => console.log(errors, e);
+
+  // TODO: this isnt working as expected
+  const handleRadioChange = (
+    labelEl: HTMLElement,
+    radioEl: HTMLInputElement
+  ) => {
+    if (!labelEl || !radioEl) return;
+
+    console.log(radioEl.name);
+    const radioEls = document.querySelectorAll(`input[name="${radioEl.name}"]`);
+
+    radioEls.forEach((el) => {
+      const labelEl = el.parentNode as HTMLElement;
+      labelEl.classList.remove("bg-green-200");
+      labelEl.classList.remove("bg-red-200");
     });
-  }
+
+    if (radioEl.checked && radioEl.value === "yes") {
+      labelEl.classList.add("bg-green-200");
+    } else if (radioEl.checked && radioEl.value === "no") {
+      labelEl.classList.add("bg-red-200");
+    }
+  };
 
   useEffect(() => {
-    // TODO: popuplate attending attending radios
-    console.log($formFields);
+    // preopulate form with existing data
+    if ($formFields.party && $formFields.party.length > 1) {
+      $formFields.party.forEach((_, index) => {
+        let radioEls = document.querySelectorAll(
+          `input[name="attending.${index}"]`
+        ) as NodeListOf<HTMLInputElement>;
+        setValue(`attending.${index}`, $formFields.party[index].attending);
+
+        radioEls.forEach((radioEl) => {
+          handleRadioChange(radioEl.parentNode as HTMLElement, radioEl);
+        });
+      });
+    }
   }, [$formFields.name]);
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onError)}
       aria-labelledby="attending-response-form"
       className="py-12"
     >
@@ -86,46 +119,36 @@ const ResponseForm = () => {
           <p>Your wedding party:</p>
           {$formFields.party.map((member, index) => (
             <div key={index}>
-              <fieldset
-                className="mb-2 flex"
-                onChange={(e) => {
-                  // console.log(getFieldState(`attending.${index}`));
-                  handleInputChange(e);
-                }}
-              >
+              <fieldset className="mb-2 flex">
                 <legend className="mb-1 text-gray-700">
                   Will <strong>{member.name}</strong> be able to attend our
                   wedding?
                 </legend>
-                <label
-                  className={`w-full cursor-pointer border rounded p-3  ${
-                    attendingResponse[`attending.${index}`] === "yes"
-                      ? "bg-green-200"
-                      : "bg-gray-100"
-                  }`}
-                >
+                <label className="w-full cursor-pointer border rounded p-3">
                   <input
                     className="accent-green-600"
                     type="radio"
                     value="yes"
                     {...register(`attending.${index}` as const, {
                       required: true,
+                      onChange: (e) => {
+                        handleRadioChange(e.target.parentNode, e.target);
+                      },
                     })}
                   />
                   <span className="px-2">Yes</span>
                 </label>
-                <label
-                  className={`w-full cursor-pointer border rounded p-3 ${
-                    attendingResponse[`attending.${index}`] === "no"
-                      ? "bg-red-200"
-                      : "bg-gray-100"
-                  }`}
-                >
+                <label className="w-full cursor-pointer border rounded p-3">
                   <input
                     className="accent-red-600"
                     type="radio"
                     value="no"
-                    {...register(`attending.${index}`, { required: true })}
+                    {...register(`attending.${index}`, {
+                      required: true,
+                      onChange: (e) => {
+                        handleRadioChange(e.target.parentNode, e.target);
+                      },
+                    })}
                   />
                   <span className="px-2">No</span>
                 </label>
@@ -138,41 +161,36 @@ const ResponseForm = () => {
       {/* if only 1 person in party */}
       {$formFields.party && $formFields.party.length <= 1 && (
         <>
-          <fieldset
-            className="mb-2 flex"
-            onChange={(e) => handleInputChange(e)}
-          >
+          <fieldset className="mb-2 flex">
             <legend className="mb-1 text-gray-700">
               Will <strong>{$formFields.name}</strong> be able to attend our
               wedding?
             </legend>
-            <label
-              className={`w-full cursor-pointer border rounded p-3  ${
-                attendingResponse["attending"] === "yes"
-                  ? "bg-green-200"
-                  : "bg-gray-100"
-              }`}
-            >
+            <label className="w-full cursor-pointer border rounded p-3">
               <input
                 className="accent-green-600"
                 type="radio"
                 value="yes"
-                {...register("attending", { required: true })}
+                {...register("attending", {
+                  required: true,
+                  onChange: (e) => {
+                    console.log(e);
+                  },
+                })}
               />
               <span className="px-2">Yes</span>
             </label>
-            <label
-              className={`w-full cursor-pointer border rounded p-3 ${
-                attendingResponse["attending"] === "no"
-                  ? "bg-red-200"
-                  : "bg-gray-100"
-              }`}
-            >
+            <label className="w-full cursor-pointer border rounded p-3">
               <input
                 className="accent-red-600"
                 type="radio"
                 value="no"
-                {...register("attending", { required: true })}
+                {...register("attending", {
+                  required: true,
+                  onChange: (e) => {
+                    console.log(e);
+                  },
+                })}
               />
               <span className="px-2">No</span>
             </label>

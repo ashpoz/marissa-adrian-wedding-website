@@ -62,8 +62,8 @@ export const post: APIRoute = async ({ request }) => {
     console.error("Error: ", error);
     return new Response(
       JSON.stringify({
-        message: "Error!",
-        body: error,
+        status: "Error!",
+        message: error.message,
       }),
       { status: 400 }
     );
@@ -72,8 +72,8 @@ export const post: APIRoute = async ({ request }) => {
   // Do something with the data, then return a success response
   return new Response(
     JSON.stringify({
-      message: "Success!",
-      body: data,
+      status: "success",
+      data: data,
     }),
     { status: 200 }
   );

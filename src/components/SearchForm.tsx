@@ -3,6 +3,7 @@ import { useStore } from "@nanostores/react";
 import { formFields } from "../lib/formStore";
 
 import ErrorOutput from "./ErrorOutput";
+import { useEffect } from "react";
 
 interface IFormInput {
   fullName: String;
@@ -25,27 +26,29 @@ const SearchForm = () => {
 
     const searchData = await searchName.json();
 
-    console.log(searchData);
+    const results = searchData.data.results;
 
     // if resData has matches key
-    if (searchData.results && searchData.results.length === 1) {
+    if (results && results.length === 1) {
       const searchParty = await fetch("/api/searchParty", {
         method: "POST",
-        body: JSON.stringify(searchData.results),
+        body: JSON.stringify(results),
       });
+
       const partyData = await searchParty.json();
+      const party = partyData.data.party;
 
       formFields.set({
         ...$formFields,
-        id: searchData.results[0].id,
-        results: searchData.results,
-        name: searchData.results[0].name,
-        party: partyData.party,
+        id: results[0].id,
+        results: results,
+        name: results[0].name,
+        party: party,
       });
-    } else if (searchData.results && searchData.results.length > 1) {
+    } else if (results && results.length > 1) {
       formFields.set({
         ...$formFields,
-        results: searchData.results,
+        results: results,
       });
     } else {
       formFields.set({
