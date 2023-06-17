@@ -65,14 +65,13 @@ const ResponseForm = () => {
 
   const onError = (errors: any, e: any) => console.log(errors, e);
 
-  // TODO: this isnt working as expected
+  // TODO: this should be refactored
   const handleRadioChange = (
     labelEl: HTMLElement,
     radioEl: HTMLInputElement
   ) => {
     if (!labelEl || !radioEl) return;
 
-    console.log(radioEl.name);
     const radioEls = document.querySelectorAll(`input[name="${radioEl.name}"]`);
 
     radioEls.forEach((el) => {
@@ -90,6 +89,7 @@ const ResponseForm = () => {
 
   useEffect(() => {
     // preopulate form with existing data
+    // TODO: this should be refactored
     if ($formFields.party && $formFields.party.length > 1) {
       $formFields.party.forEach((_, index) => {
         let radioEls = document.querySelectorAll(
@@ -98,7 +98,11 @@ const ResponseForm = () => {
         setValue(`attending.${index}`, $formFields.party[index].attending);
 
         radioEls.forEach((radioEl) => {
-          handleRadioChange(radioEl.parentNode as HTMLElement, radioEl);
+          if (radioEl.checked && radioEl.value === "yes") {
+            radioEl.parentNode?.classList.add("bg-green-200");
+          } else if (radioEl.checked && radioEl.value === "no") {
+            radioEl.parentNode?.classList.add("bg-red-200");
+          }
         });
       });
     }
