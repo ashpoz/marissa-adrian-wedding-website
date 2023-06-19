@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
-import { formFields } from "../lib/formStore";
+import { FormFields, formFields } from "../lib/formStore";
 import ErrorOutput from "./ErrorOutput";
 
 interface IFormInput {
@@ -20,10 +20,9 @@ const ResponseForm = () => {
     watch,
     formState: { errors },
   } = useForm<IFormInput>();
-  const [attendingResponse, setAttendingResponse] = useState({});
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const partyArr = $formFields.party.map((member, index) => {
+    const partyArr = $formFields.party?.map((member, index) => {
       return {
         ...member,
         attending: data.attending[index],
@@ -41,6 +40,7 @@ const ResponseForm = () => {
       method: "POST",
       body: JSON.stringify({
         id: $formFields.id,
+        attending: data.attending,
         name: $formFields.name,
         note: data.note,
         songRequests: data.songRequests,
@@ -49,8 +49,6 @@ const ResponseForm = () => {
     });
 
     const resData = await response.json();
-
-    console.log(resData);
 
     if (resData.status === "success") {
       formFields.set({
@@ -65,6 +63,31 @@ const ResponseForm = () => {
 
   const onError = (errors: any, e: any) => console.log(errors, e);
 
+  const radioStyles = {
+    yes: "bg-green-200",
+    no: "bg-red-200",
+  };
+
+  const radioStylingToggle = (
+    labelEl: HTMLElement,
+    radioEl: HTMLInputElement
+  ) => {
+    if (!labelEl || !radioEl) return;
+
+    radioEl.checked && labelEl.classList.add(radioStyles[radioEl.value]);
+  };
+
+  const clearRadioStyling = (radioEls: NodeList) => {
+    if (!radioEls) return;
+
+    radioEls.forEach((el) => {
+      const labelEl = el.parentNode as HTMLElement;
+      Object.keys(radioStyles).forEach((key) => {
+        labelEl.classList.remove(radioStyles[key]);
+      });
+    });
+  };
+
   // TODO: this should be refactored
   const handleRadioChange = (
     labelEl: HTMLElement,
@@ -74,38 +97,40 @@ const ResponseForm = () => {
 
     const radioEls = document.querySelectorAll(`input[name="${radioEl.name}"]`);
 
-    radioEls.forEach((el) => {
-      const labelEl = el.parentNode as HTMLElement;
-      labelEl.classList.remove("bg-green-200");
-      labelEl.classList.remove("bg-red-200");
-    });
+    clearRadioStyling(radioEls);
 
-    if (radioEl.checked && radioEl.value === "yes") {
-      labelEl.classList.add("bg-green-200");
-    } else if (radioEl.checked && radioEl.value === "no") {
-      labelEl.classList.add("bg-red-200");
+    radioStylingToggle(labelEl, radioEl);
+  };
+
+  const prepopulateForm = (formState: FormFields) => {
+    if (!formState || !formState.party) return;
+
+    if (formState.party.length > 1) {
+      formState.party.forEach((_, index) => {
+        let radioEls = document.querySelectorAll(
+          `input[name="attending.${index}"]`
+        ) as NodeListOf<HTMLInputElement>;
+        setValue(`attending.${index}`, formState.party[index].attending);
+
+        radioEls.forEach((radioEl) => {
+          radioStylingToggle(radioEl.parentNode as HTMLElement, radioEl);
+        });
+      });
+    } else {
+      let radioEls = document.querySelectorAll(
+        `input[name="attending"]`
+      ) as NodeListOf<HTMLInputElement>;
+      setValue("attending", formState.attending);
+
+      radioEls.forEach((radioEl) => {
+        radioStylingToggle(radioEl.parentNode as HTMLElement, radioEl);
+      });
     }
   };
 
   useEffect(() => {
     // preopulate form with existing data
-    // TODO: this should be refactored
-    if ($formFields.party && $formFields.party.length > 1) {
-      $formFields.party.forEach((_, index) => {
-        let radioEls = document.querySelectorAll(
-          `input[name="attending.${index}"]`
-        ) as NodeListOf<HTMLInputElement>;
-        setValue(`attending.${index}`, $formFields.party[index].attending);
-
-        radioEls.forEach((radioEl) => {
-          if (radioEl.checked && radioEl.value === "yes") {
-            radioEl.parentNode?.classList.add("bg-green-200");
-          } else if (radioEl.checked && radioEl.value === "no") {
-            radioEl.parentNode?.classList.add("bg-red-200");
-          }
-        });
-      });
-    }
+    prepopulateForm($formFields);
   }, [$formFields.name]);
 
   return (
@@ -178,7 +203,7 @@ const ResponseForm = () => {
                 {...register("attending", {
                   required: true,
                   onChange: (e) => {
-                    console.log(e);
+                    handleRadioChange(e.target.parentNode, e.target);
                   },
                 })}
               />
@@ -192,7 +217,7 @@ const ResponseForm = () => {
                 {...register("attending", {
                   required: true,
                   onChange: (e) => {
-                    console.log(e);
+                    handleRadioChange(e.target.parentNode, e.target);
                   },
                 })}
               />

@@ -10,11 +10,12 @@ export const post: APIRoute = async ({ request }) => {
 
   // filter names that start with searched name
   // const foundNames = guestlistNames.filter((a) => a.startsWith(searchedName));
-  const foundNames = guestlistNames.filter((a) =>
-    a.name.startsWith(searchedName)
-  );
+  const foundNames = guestlistNames.filter((obj: any) => {
+    return obj.name?.toLowerCase().startsWith(searchedName.toLowerCase());
+  });
 
-  if (foundNames.length === 1) {
+  // if we have a name/s, return it
+  if (foundNames.length >= 1) {
     return new Response(
       JSON.stringify({
         status: "success",
@@ -23,24 +24,15 @@ export const post: APIRoute = async ({ request }) => {
         },
       }),
       { status: 200 }
-    );
-  } else if (foundNames.length > 1) {
-    return new Response(
-      JSON.stringify({
-        status: "success",
-        data: {
-          results: foundNames,
-        },
-      }),
-      { status: 200 }
-    );
-  } else if (foundNames.length === 0) {
-    return new Response(
-      JSON.stringify({
-        status: "fail",
-        message: "No names found!",
-      }),
-      { status: 404 }
     );
   }
+
+  // if we don't have a name, return an error
+  return new Response(
+    JSON.stringify({
+      status: "fail",
+      message: "No names found!",
+    }),
+    { status: 404 }
+  );
 };

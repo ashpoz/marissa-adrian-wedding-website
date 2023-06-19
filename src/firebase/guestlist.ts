@@ -2,8 +2,15 @@ import { db } from "./server";
 
 const ref = db.ref("/1P8zfU5J1FLHL6e_tteATaN0S72_QgfEfbvOxm5EVP_k/All");
 
+export interface Guestlist {
+  id: string;
+  name: string;
+  group: Array<string>;
+  attending: boolean;
+}
+
 export const getGuestlistNames = async () => {
-  const guestListArray: Array<String> = [];
+  const guestListArray: Array<Object> = [];
 
   ref.orderByChild("Name").on("child_added", (snapshot) => {
     let dataId = snapshot.val()["Id"];
@@ -12,22 +19,18 @@ export const getGuestlistNames = async () => {
     group = group ? group.toString().split(",") : [];
     let attending = snapshot.val()["RSVP"];
 
-    // TODO: rebuild party array to include attending status
-    // basically you'll loop thru party array, and then for each name in firebase, you'll check if the name is in the party array, and if it is, you'll add the attending status to the party array
-
     guestListArray.push({ id: dataId, name, group, attending });
   });
   return guestListArray;
 };
 
-// TODO: add function to search for specific names in database
-export const getRSVPs = async (arr: Array<String>) => {
-  const partyArray: Array<String> = [];
+export const getGuestlistParty = async (arr: Array<String>) => {
+  const partyArray: Array<Object> = [];
 
-  arr.forEach((name) => {
+  arr.forEach((name: String) => {
     ref
       .orderByChild("Name")
-      .equalTo(name)
+      .equalTo(name.toString())
       .on("child_added", (snapshot) => {
         let dataId = snapshot.val()["Id"];
         let name = snapshot.val()["Name"];

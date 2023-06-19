@@ -49,15 +49,20 @@ export const post: APIRoute = async ({ request }) => {
     // update song requests for main guest
     updateCell(mainGuestRow, "Song Requests", songRequests);
 
-    // update RSVP for each guest in main guest's party
-    loopThruGuests(data.party, (guest: any) => {
-      // grab id and attending from guest
-      const { id, attending } = guest;
-      // find row in google sheets
-      const row = rows[id - 1];
-      // update row with new RSVP
-      updateCell(row, "RSVP", attending);
-    });
+    if (data.party.length > 0) {
+      // update RSVP for each guest in main guest's party
+      loopThruGuests(data.party, (guest: any) => {
+        // grab id and attending from guest
+        const { id, attending } = guest;
+        // find row in google sheets
+        const row = rows[id - 1];
+        // update row with new RSVP
+        updateCell(row, "RSVP", attending);
+      });
+    } else {
+      // update RSVP for main guest
+      updateCell(mainGuestRow, "RSVP", data.attending);
+    }
   } catch (error: any) {
     console.error("Error: ", error);
     return new Response(

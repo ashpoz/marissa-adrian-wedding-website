@@ -41,6 +41,7 @@ const SearchForm = () => {
       formFields.set({
         ...$formFields,
         id: results[0].id,
+        attending: results[0].attending,
         results: results,
         name: results[0].name,
         party: party,

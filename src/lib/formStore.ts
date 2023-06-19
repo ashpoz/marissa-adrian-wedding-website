@@ -1,11 +1,12 @@
 import { atom } from "nanostores";
 
-interface FormFields {
+export interface FormFields {
+  id?: Number;
   results?: Array<string[]>;
   name?: String;
   attending?: Boolean;
   note?: String;
-  songRequests?: String;
+  songRequests?: String[];
   party?: Array<Object>;
   group?: Array<string[]>;
   completed?: Boolean;
