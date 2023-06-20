@@ -5,39 +5,43 @@ import heroImage from "@assets/images/photo1.jpg";
 
 <Layout title="Marissa and Adrian's Wedding">
   <main class="container mx-auto px-4">
-    <div class="md:flex items-center py-10">
-      <div class="flex-1">
+    <div class="py-10 md:grid grid-cols-2 xl:grid-cols-8 gap-4 items-center">
+      <div class="xl:col-span-5">
         <div>
           <h1 class="leading-10 font-serif">
-            <span class="block text-6xl font-display font-bold"
+            <span
+              class="block text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-display font-bold"
               >Marissa & Adrian</span
             >
-            <span class="block text-4xl text-redwood py-6"
+            <span
+              class="block text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-redwood py-6"
               >are getting married!</span
             >
           </h1>
         </div>
-        <div class="text-2xl font-serif leading-loose">
+        <div
+          class="text-md lg:text-2xl font-serif leading-loose lg:leading-loose"
+        >
           <p>5:00pm - 10:00pm</p>
           <p>November 11th, 2023</p>
           <p>The Riley Building</p>
           <p>Austin, TX</p>
-          <div class="py-6">
+          <div class="flex flex-wrap sm:block py-6">
             <a
-              class="px-10 py-3 border-solid text-white bg-redwood border-2"
+              class="w-full sm:fit-content text-center px-10 py-3 border-solid text-white bg-redwood border-2"
               href="/rsvp">RSVP</a
             >
             <a
-              class="px-10 py-3 border-solid text-redwood border-color-redwood border-2"
+              class="w-full sm:fit-content text-center px-10 py-3 border-solid text-redwood border-color-redwood border-2"
               href="#">Add to Calendar</a
             >
           </div>
         </div>
       </div>
-      <div class="flex-1 py-4">
+      <div class="py-4 xl:col-span-3">
         <img
           src={heroImage}
-          class="object-cover h-[40rem] w-[50rem] rounded-t-[12.5rem]"
+          class="object-cover aspect-[3/4] rounded-t-[12.5rem]"
           alt="Marissa and Adrian selfie."
         />
       </div>
