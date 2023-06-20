@@ -3,6 +3,11 @@ module.exports = {
 	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
 	],
 	theme: {
+		container: {
+			padding: {
+				DEFAULT: '1rem',
+			},
+		},
 		extend: {
 			fontFamily: {
 				display: ["Noto Serif Display Variable", "serif"],
@@ -26,5 +31,7 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		require("@tailwindcss/typography"),
+	],
 }
