@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getGuestlistNames } from "../../firebase/guestlist";
+import { normalizeString } from "../../lib/helpers";
 
 export const post: APIRoute = async ({ request }) => {
   const data = await request.json();
@@ -11,7 +12,10 @@ export const post: APIRoute = async ({ request }) => {
   // filter names that start with searched name
   // const foundNames = guestlistNames.filter((a) => a.startsWith(searchedName));
   const foundNames = guestlistNames.filter((obj: any) => {
-    return obj.name?.toLowerCase().startsWith(searchedName.toLowerCase());
+    let objName = normalizeString(obj.name).toLowerCase();
+    let name = normalizeString(searchedName).toLowerCase();
+
+    return objName.startsWith(name);
   });
 
   // if we have a name/s, return it

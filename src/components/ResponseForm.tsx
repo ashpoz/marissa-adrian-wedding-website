@@ -145,13 +145,16 @@ const ResponseForm = () => {
       {/* if they have a wedding party, incl. below text and map() fn */}
       {$formFields.party && $formFields.party.length > 1 && (
         <div>
-          <p>Your wedding party:</p>
+          <p className="text-lg mt-4 mb-4">Your wedding party:</p>
           {$formFields.party.map((member, index) => (
-            <div key={index}>
+            <div key={index} className="mt-4 mb-4">
               <fieldset className="mb-2 flex">
-                <legend className="mb-1 text-gray-700">
-                  Will <strong>{member.name}</strong> be able to attend our
-                  wedding?
+                <legend className="mb-2 text-gray-700">
+                  Will{" "}
+                  <strong className="font-bolder text-redwood uppercase">
+                    {member.name}
+                  </strong>{" "}
+                  be able to attend our wedding?
                 </legend>
                 <label className="w-full cursor-pointer border rounded p-3">
                   <input
@@ -189,11 +192,14 @@ const ResponseForm = () => {
       )}
       {/* if only 1 person in party */}
       {$formFields.party && $formFields.party.length <= 1 && (
-        <>
+        <div className="mt-4 mb-4">
           <fieldset className="mb-2 flex">
-            <legend className="mb-1 text-gray-700">
-              Will <strong>{$formFields.name}</strong> be able to attend our
-              wedding?
+            <legend className="mb-2 text-gray-700">
+              Will{" "}
+              <strong className="font-bolder text-redwood uppercase">
+                {$formFields.name}
+              </strong>{" "}
+              be able to attend our wedding?
             </legend>
             <label className="w-full cursor-pointer border rounded p-3">
               <input
@@ -225,13 +231,13 @@ const ResponseForm = () => {
             </label>
           </fieldset>
           <ErrorOutput errType={errors?.attending?.type} />
-        </>
+        </div>
       )}
 
       <span className="text-gray-700">Song Requests:</span>
       <input
         type="text"
-        className="mt-1 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
+        className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
         placeholder="Any songs you'd like to hear?"
         {...register("songRequests")}
       />
@@ -240,7 +246,7 @@ const ResponseForm = () => {
       <span className="text-gray-700">Note:</span>
       <input
         type="text"
-        className="mt-1 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
+        className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
         placeholder="Feel free to leave any newlywed advice for us!"
         {...register("note")}
       />

@@ -3,7 +3,6 @@ import { useStore } from "@nanostores/react";
 import { formFields } from "../lib/formStore";
 
 import ErrorOutput from "./ErrorOutput";
-import { useEffect } from "react";
 
 interface IFormInput {
   fullName: String;
@@ -19,39 +18,51 @@ const SearchForm = () => {
   const $formFields = useStore(formFields);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const searchName = await fetch("/api/searchName", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    const searchData = await searchName.json();
-
-    const results = searchData.data.results;
-
-    // if resData has matches key
-    if (results && results.length === 1) {
-      const searchParty = await fetch("/api/searchParty", {
+    try {
+      // search for name
+      const searchName = await fetch("/api/searchName", {
         method: "POST",
-        body: JSON.stringify(results),
+        body: JSON.stringify(data),
       });
+      // get results
+      const searchData = await searchName.json();
+      // get results array
+      const results = searchData.data.results;
 
-      const partyData = await searchParty.json();
-      const party = partyData.data.party;
+      // if only 1 result, search for party and set form fields
+      if (results && results.length === 1) {
+        const searchParty = await fetch("/api/searchParty", {
+          method: "POST",
+          body: JSON.stringify(results),
+        });
 
-      formFields.set({
-        ...$formFields,
-        id: results[0].id,
-        attending: results[0].attending,
-        results: results,
-        name: results[0].name,
-        party: party,
-      });
-    } else if (results && results.length > 1) {
-      formFields.set({
-        ...$formFields,
-        results: results,
-      });
-    } else {
+        const partyData = await searchParty.json();
+        const party = partyData.data.party;
+
+        formFields.set({
+          ...$formFields,
+          id: results[0].id,
+          attending: results[0].attending,
+          results: results,
+          name: results[0].name,
+          party: party,
+        });
+        // if more than one result, set results
+      } else if (results && results.length > 1) {
+        formFields.set({
+          ...$formFields,
+          results: results,
+        });
+        // if no results, set results to empty array
+      } else {
+        formFields.set({
+          ...$formFields,
+          results: [],
+        });
+      }
+      // if error, set results to empty array
+    } catch (err) {
+      console.log(err);
       formFields.set({
         ...$formFields,
         results: [],
