@@ -1,0 +1,11 @@
+---
+const { title, src, alt, caption } = Astro.props;
+---
+
+<div class="swiper-slide">
+  <img src={src} alt={alt} />
+  <div>
+    <h3>{title}</h3>
+    <p>{caption}</p>
+  </div>
+</div>

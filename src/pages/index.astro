@@ -5,7 +5,7 @@ import heroImage from "@assets/images/photo1.jpg";
 
 <Layout title="Marissa and Adrian's Wedding">
   <main class="container mx-auto px-4">
-    <div class="py-10 md:grid grid-cols-2 xl:grid-cols-8 gap-4 items-center">
+    <div class="md:py-10 grid md:grid-cols-2 xl:grid-cols-8 gap-4 items-center">
       <div class="xl:col-span-5">
         <div>
           <h1 class="leading-10 font-serif">
@@ -14,13 +14,13 @@ import heroImage from "@assets/images/photo1.jpg";
               >Marissa & Adrian</span
             >
             <span
-              class="block text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-redwood py-6"
+              class="block text-xl py-2 md:text-3xl lg:text-3xl xl:text-4xl text-redwood md:py-6"
               >are getting married!</span
             >
           </h1>
         </div>
         <div
-          class="text-md lg:text-2xl font-serif leading-loose lg:leading-loose"
+          class="text-md lg:text-2xl font-serif leading-relaxed lg:leading-loose"
         >
           <p>5:00pm - 10:00pm</p>
           <p>November 11th, 2023</p>
@@ -28,20 +28,20 @@ import heroImage from "@assets/images/photo1.jpg";
           <p>Austin, TX</p>
           <div class="flex flex-wrap sm:block py-6">
             <a
-              class="w-full sm:fit-content text-center px-10 py-3 border-solid text-white bg-redwood border-2"
+              class="w-full sm:fit-content text-center px-10 py-3 border-solid text-white bg-redwood border-redwood border-2"
               href="/rsvp">RSVP</a
             >
             <a
-              class="w-full sm:fit-content text-center px-10 py-3 border-solid text-redwood border-color-redwood border-2"
+              class="w-full sm:fit-content text-center px-10 py-3 border-solid text-redwood border-redwood border-2"
               href="#">Add to Calendar</a
             >
           </div>
         </div>
       </div>
-      <div class="py-4 xl:col-span-3">
+      <div class="py-4 xl:col-span-3 row-start-1 md:row-start-auto">
         <img
           src={heroImage}
-          class="object-cover aspect-[3/4] rounded-t-[12.5rem]"
+          class="object-cover aspect-video rounded-lg md:aspect-[3/4] md:rounded-t-[12.5rem]"
           alt="Marissa and Adrian selfie."
         />
       </div>
