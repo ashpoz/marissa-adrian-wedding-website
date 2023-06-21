@@ -5,94 +5,104 @@ import Slide from "@components/Slide.astro";
 
 const slideItems = [
   {
+    id: 1,
     title: "Met: 2012",
-    src: "berlin-wall",
+    src: "oasis",
     extension: "webp",
     alt: "",
-    caption: "",
+    year: "2012",
+    caption: "We met!",
+    description: "Dolor nostrud reprehenderit ipsum esse dolore minim.",
   },
   {
+    id: 2,
     title: "Moved in together: 2016",
-    src: "berlin-wall",
+    src: "moved-in2",
     extension: "webp",
-
     alt: "",
-    caption: "",
+    year: "2016",
+    caption: "Moved in together",
+    description: "Dolor nostrud reprehenderit ipsum esse dolore minim.",
   },
   {
+    id: 3,
     title: "Moved to CDMX: 2019",
-    src: "berlin-wall",
+    src: "castillo",
     extension: "webp",
-
     alt: "",
-    caption: "",
+    year: "2019",
+    caption: "Moved to CDMX",
+    description: "Dolor nostrud reprehenderit ipsum esse dolore minim.",
   },
   {
+    id: 4,
     title: "Moved back to Austin: 2020",
-    src: "berlin-wall",
+    src: "some-wedding",
     extension: "webp",
-
     alt: "",
-    caption: "",
+    year: 2020,
+    caption: "Moved back to Austin",
+    description: "Dolor nostrud reprehenderit ipsum esse dolore minim.",
   },
   {
+    id: 5,
     title: "Engagement: 2021",
-    src: "berlin-wall",
+    src: "engaged",
     extension: "webp",
-
     alt: "",
-    caption: "",
+    year: 2021,
+    caption: "We got engaged!",
+    description: "Dolor nostrud reprehenderit ipsum esse dolore minim.",
   },
   {
+    id: 6,
     title: "Wedding: 2023",
-    src: "berlin-wall",
-    extension: "webp",
+    src: "photo1",
+    extension: "jpg",
     alt: "",
-    caption: "",
+    year: 2023,
+    caption: "We're getting married!",
+    description: "Dolor nostrud reprehenderit ipsum esse dolore minim.",
   },
 ];
 ---
 
 <style is:global>
-  .swiper-slide-active img {
+  .swiper-slide-active {
     @apply transition-transform duration-500 ease-in-out scale-125;
   }
-  .swiper-backface-hidden .swiper-slide {
+  .swiper-backface-hidden .swiper-slide:not(.swiper-slide-active) {
     @apply scale-75;
   }
 </style>
 <Layout title="Our Story">
   <main>
     <Hero title="Our Story" />
-    <div class="swiper timelineSwiper w-full h-full pt-20 pb-20">
-      <div class="swiper-wrapper">
+    <div class="swiper timelineSwiper w-full h-full -mt-8 pb-20">
+      <div class="swiper-wrapper items-center">
         {slideItems.map((item) => <Slide {...item} />)}
       </div>
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+      <div class="container text-right text-4xl">
+        <button class="swiper-button-prev">←</button>
+        <button class="swiper-button-next">→</button>
+      </div>
     </div>
   </main>
 </Layout>
 
 <script>
   // core version + navigation, pagination modules:
-  import Swiper, { Navigation, Pagination } from "swiper";
+  import Swiper, { Navigation } from "swiper";
   // import Swiper and modules styles
   import "swiper/css";
-  import "swiper/css/navigation";
-  import "swiper/css/pagination";
 
   // init Swiper:
   const swiper = new Swiper(".timelineSwiper", {
-    modules: [Navigation, Pagination],
+    modules: [Navigation],
     slidesPerView: "auto",
     centeredSlides: true,
     spaceBetween: 50,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
+    grabCursor: true,
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",

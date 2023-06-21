@@ -1,11 +1,14 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import RSVP from "@components/RSVP";
+import Hero from "@components/Hero.astro";
 ---
 
 <Layout title="RSVP">
   <main class="container mx-auto font-serif max-w-3xl">
-    <h1 class="text-4xl font-bold font-sans-serif text-center py-12">RSVP</h1>
-    <RSVP client:only />
+    <Hero title="RSVP" />
+    <section class="pb-20">
+      <RSVP client:only />
+    </section>
   </main>
 </Layout>

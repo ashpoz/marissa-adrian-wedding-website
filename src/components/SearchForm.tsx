@@ -74,32 +74,39 @@ const SearchForm = () => {
     <>
       {/* If no matches, show search form */}
       {!$formFields.results && (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <span className="text-gray-700">Full Name:</span>
-          <input
-            type="text"
-            className="mt-1 block w-full px-2 py-2 rounded border border-solid border-gray-300"
-            placeholder="Ex. Beyonce Knowles"
-            {...register("fullName", {
-              required: true,
-              maxLength: 200,
-              minLength: 2,
-            })}
-          />
-          <ErrorOutput errType={errors?.fullName?.type} />
-          <input
-            className="flex px-10 mt-3 py-3 text-white bg-redwood hover:bg-redwood-dark cursor-pointer"
-            type="submit"
-          />
-        </form>
+        <>
+          <div className="text-md mt-4 mb-6 py-2 px-2 text-gray-700">
+            ✔️ Please provide the full name of one person in your group. If
+            you're responding for yourself and a guest or your family, you can
+            RSVP for your entire group on the next page.
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <span className="text-gray-700">Full Name:</span>
+            <input
+              type="text"
+              className="mt-1 block w-full px-2 py-2 rounded border border-solid border-gray-300"
+              placeholder="Ex. Beyonce Knowles"
+              {...register("fullName", {
+                required: true,
+                maxLength: 200,
+                minLength: 2,
+              })}
+            />
+            <ErrorOutput errType={errors?.fullName?.type} />
+            <input
+              className="flex px-10 mt-3 py-3 text-white bg-redwood hover:bg-redwood-dark cursor-pointer"
+              type="submit"
+            />
+          </form>
+        </>
       )}
       {/* if more than 1 match */}
-      <div className="text-center pt-6 pb-6">
+      <div className="pt-6 pb-6">
         {$formFields.results && $formFields.results.length > 1 && (
           <div>
             <p className="text-gray-700 mb-6">
-              We found more than one person with that name. Please select your
-              full name below <br />
+              🔍 We found more than one person with that name. Please select
+              your full name below <br />
               (or{" "}
               <a href="" className="underline text-redwood">
                 search again

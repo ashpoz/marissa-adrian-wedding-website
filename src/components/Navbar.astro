@@ -1,4 +1,5 @@
 ---
+import { Image } from "@astrojs/image/components";
 import logoIcon from "@assets/icons/logo-burgundy.svg";
 
 const menuItems = [
@@ -53,7 +54,7 @@ const menuItems = [
   >
     <div class="basis-1/5">
       <a href="/">
-        <img src={logoIcon} alt="" />
+        <Image src={logoIcon} alt="" />
       </a>
     </div>
     <div class="ml-auto z-10 lg:hidden">

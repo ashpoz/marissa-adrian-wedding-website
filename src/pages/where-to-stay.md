@@ -8,6 +8,8 @@ title: Where to Stay
 We have reserved a block of rooms at TBD. Book your room before DATE to stay in our block.
 Vacation Rental
 
+---
+
 ## Airbnb, Vrbo, etc
 
 There are many vacation rental options in Austin! Here are our neighborhood suggestions if you go this route:

@@ -137,15 +137,17 @@ const ResponseForm = () => {
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
       aria-labelledby="attending-response-form"
-      className="py-12"
+      className="py-10"
     >
       <h3>
-        <strong className="text-2xl">{$formFields.name}</strong>
+        <strong className="text-2xl">Hi, {$formFields.name}!</strong>
       </h3>
       {/* if they have a wedding party, incl. below text and map() fn */}
       {$formFields.party && $formFields.party.length > 1 && (
         <div>
-          <p className="text-lg mt-4 mb-4">Your wedding party:</p>
+          <p className="text-lg mt-2 mb-8">
+            Please RSVP for your wedding party:
+          </p>
           {$formFields.party.map((member, index) => (
             <div key={index} className="mt-4 mb-4">
               <fieldset className="mb-2 flex">
@@ -156,7 +158,7 @@ const ResponseForm = () => {
                   </strong>{" "}
                   be able to attend our wedding?
                 </legend>
-                <label className="w-full cursor-pointer border rounded p-3">
+                <label className="w-full cursor-pointer border border-gray-700 rounded p-3">
                   <input
                     className="accent-green-600"
                     type="radio"
@@ -170,7 +172,7 @@ const ResponseForm = () => {
                   />
                   <span className="px-2">Yes</span>
                 </label>
-                <label className="w-full cursor-pointer border rounded p-3">
+                <label className="w-full cursor-pointer border border-gray-700 rounded p-3">
                   <input
                     className="accent-red-600"
                     type="radio"
@@ -201,7 +203,7 @@ const ResponseForm = () => {
               </strong>{" "}
               be able to attend our wedding?
             </legend>
-            <label className="w-full cursor-pointer border rounded p-3">
+            <label className="w-full cursor-pointer border border-gray-700 rounded p-3">
               <input
                 className="accent-green-600"
                 type="radio"
@@ -215,7 +217,7 @@ const ResponseForm = () => {
               />
               <span className="px-2">Yes</span>
             </label>
-            <label className="w-full cursor-pointer border rounded p-3">
+            <label className="w-full cursor-pointer border border-gray-700 rounded p-3">
               <input
                 className="accent-red-600"
                 type="radio"

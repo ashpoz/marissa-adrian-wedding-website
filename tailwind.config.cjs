@@ -30,6 +30,16 @@ module.exports = {
 				"white": "#fff",
 				"black": "151612",
 			},
+			typography: {
+				DEFAULT: {
+					css: {
+						"--tw-prose-bullets": "#91453B",
+						hr: {
+							borderColor: "#91453B",
+						},
+					},
+				},
+			},
 		},
 	},
 	plugins: [
