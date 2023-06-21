@@ -1,107 +1,76 @@
 ---
 import Hero from "@components/Hero.astro";
-import Layout from "../layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
 import Slide from "@components/Slide.astro";
 
 const slideItems = [
   {
     title: "Met: 2012",
-    src: "/",
+    src: "berlin-wall",
+    extension: "webp",
     alt: "",
     caption: "",
   },
   {
     title: "Moved in together: 2016",
-    src: "/",
+    src: "berlin-wall",
+    extension: "webp",
+
     alt: "",
     caption: "",
   },
   {
     title: "Moved to CDMX: 2019",
-    src: "/",
+    src: "berlin-wall",
+    extension: "webp",
+
     alt: "",
     caption: "",
   },
   {
     title: "Moved back to Austin: 2020",
-    src: "/",
+    src: "berlin-wall",
+    extension: "webp",
+
     alt: "",
     caption: "",
   },
   {
     title: "Engagement: 2021",
-    src: "/",
+    src: "berlin-wall",
+    extension: "webp",
+
     alt: "",
     caption: "",
   },
   {
     title: "Wedding: 2023",
-    src: "/",
+    src: "berlin-wall",
+    extension: "webp",
     alt: "",
     caption: "",
   },
 ];
 ---
 
-<!-- Demo styles -->
-<style>
-  html,
-  body {
-    position: relative;
-    height: 100%;
+<style is:global>
+  .swiper-slide-active img {
+    @apply transition-transform duration-500 ease-in-out scale-125;
   }
-
-  body {
-    background: #eee;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 0;
-    padding: 0;
-  }
-
-  .swiper {
-    width: 100%;
-    height: 100%;
-  }
-
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .swiper-slide {
-    width: 60%;
-  }
-
-  .swiper-slide:nth-child(2n) {
-    width: 40%;
-  }
-
-  .swiper-slide:nth-child(3n) {
-    width: 20%;
+  .swiper-backface-hidden .swiper-slide {
+    @apply scale-75;
   }
 </style>
-
 <Layout title="Our Story">
   <main>
     <Hero title="Our Story" />
-    <div class="swiper timelineSwiper">
+    <div class="swiper timelineSwiper w-full h-full pt-20 pb-20">
       <div class="swiper-wrapper">
         {slideItems.map((item) => <Slide {...item} />)}
       </div>
       <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
   </main>
 </Layout>
@@ -115,13 +84,18 @@ const slideItems = [
   import "swiper/css/pagination";
 
   // init Swiper:
-  var swiper = new Swiper(".timelineSwiper", {
+  const swiper = new Swiper(".timelineSwiper", {
+    modules: [Navigation, Pagination],
     slidesPerView: "auto",
     centeredSlides: true,
-    spaceBetween: 30,
+    spaceBetween: 50,
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
     },
   });
 </script>

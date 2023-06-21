@@ -1,10 +1,17 @@
 ---
-const { title, src, alt, caption } = Astro.props;
+import { Image } from "@astrojs/image/components";
+
+const imageFile = "berlin-wall";
+
+const { title, src, alt, caption, extension } = Astro.props;
 ---
 
-<div class="swiper-slide">
-  <img src={src} alt={alt} />
-  <div>
+<div
+  class="swiper-slide flex flex-wrap items-center justify-center max-w-xs mx-auto"
+>
+  <Image src={import(`../assets/images/${src}.${extension}`)} alt={alt} />
+  <div class="swiper-lazy-preloader"></div>
+  <div class="w-full">
     <h3>{title}</h3>
     <p>{caption}</p>
   </div>
