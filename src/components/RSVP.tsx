@@ -19,19 +19,20 @@ const RSVP = () => {
       <div className="bg-slate-50 px-6 py-2 mt-8 rounded-xl border border-gray-900 ">
         {!$formFields.name && <SearchForm />}
         {$formFields.name && !$formFields.completed && <ResponseForm />}
+        {$formFields.completed && (
+          <div className="py-20 text-center">
+            <h3 className="text-2xl">Thanks so much for your response!</h3>
+            <p className="text-xl mt-4">
+              If you have any further questions about the event, head over to
+              the{" "}
+              <a className="text-redwood underline" href="/faq">
+                FAQ page
+              </a>
+              .
+            </p>
+          </div>
+        )}
       </div>
-      {$formFields.completed && (
-        <div className="py-20 text-center">
-          <h3 className="text-2xl">Thanks so much for your response!</h3>
-          <p className="text-xl mt-4">
-            If you have any further questions about the event, head over to the{" "}
-            <a className="text-redwood underline" href="/faq">
-              FAQ page
-            </a>
-            .
-          </p>
-        </div>
-      )}
     </>
   );
 };
