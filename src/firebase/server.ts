@@ -1,7 +1,7 @@
 import type { ServiceAccount } from "firebase-admin";
 import { cert } from "firebase-admin/app";
-
-import * as admin from "firebase-admin";
+import { initializeApp } from "firebase-admin/app";
+import { getDatabase } from "firebase-admin/database";
 
 const serviceAccount = {
   type: "service_account",
@@ -16,9 +16,9 @@ const serviceAccount = {
   client_x509_cert_url: import.meta.env.FIREBASE_CLIENT_CERT_URL,
 };
 
-admin.initializeApp({
+initializeApp({
   credential: cert(serviceAccount as ServiceAccount),
   databaseURL: import.meta.env.FIREBASE_DATABASE_URL,
 });
 
-export const db = admin.database();
+export const db = getDatabase();
