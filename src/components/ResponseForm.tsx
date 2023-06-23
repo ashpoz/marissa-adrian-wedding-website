@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
 import { FormFields, formFields } from "../lib/formStore";
 import ErrorOutput from "./ErrorOutput";
+import SubmitButton from "./SubmitButton";
 
 interface IFormInput {
   attending: String;
@@ -17,8 +18,7 @@ const ResponseForm = () => {
     register,
     handleSubmit,
     setValue,
-    watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -254,10 +254,7 @@ const ResponseForm = () => {
       />
       <ErrorOutput errType={errors?.note?.type} />
 
-      <input
-        className="flex px-10 mt-3 py-3 text-white bg-redwood hover:bg-redwood-dark cursor-pointer"
-        type="submit"
-      />
+      <SubmitButton isSubmitting={isSubmitting} />
     </form>
   );
 };

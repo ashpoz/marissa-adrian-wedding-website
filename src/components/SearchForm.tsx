@@ -3,6 +3,8 @@ import { useStore } from "@nanostores/react";
 import { formFields } from "../lib/formStore";
 
 import ErrorOutput from "./ErrorOutput";
+import Spinner from "./Spinner";
+import SubmitButton from "./SubmitButton";
 
 interface IFormInput {
   fullName: String;
@@ -12,7 +14,7 @@ const SearchForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IFormInput>();
 
   const $formFields = useStore(formFields);
@@ -93,10 +95,24 @@ const SearchForm = () => {
               })}
             />
             <ErrorOutput errType={errors?.fullName?.type} />
-            <input
-              className="flex px-10 mt-3 py-3 text-white bg-redwood hover:bg-redwood-dark cursor-pointer"
-              type="submit"
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              initialText="Search"
+              submittingText="Searching..."
             />
+            {/* <button
+              className="flex items-center px-10 mt-3 py-3 text-white bg-redwood hover:bg-redwood-dark cursor-pointer"
+              disabled={isSubmitting && true}
+            >
+              {isSubmitting ? (
+                <>
+                  <Spinner />
+                  Searching...
+                </>
+              ) : (
+                "Search"
+              )}
+            </button> */}
           </form>
         </>
       )}
