@@ -1,9 +1,11 @@
 ---
 import { Image } from "@astrojs/image/components";
+import { getImage } from "@astrojs/image";
 const { title, src, alt, caption, extension, year, description, id } =
   Astro.props;
 
 const isFirstEl = `${id === 1 ? "pb-10" : "py-10"}`;
+const isLazyLoaded: any = `${id === 1 ? "eager" : "lazy"}`;
 ---
 
 <div
@@ -21,8 +23,21 @@ const isFirstEl = `${id === 1 ? "pb-10" : "py-10"}`;
     <p class="text-xl">{caption}</p>
   </div>
   <Image
-    class="col-span-5"
+    class="col-span-5 bg-gray-200 animate-pulse"
     src={import(`../assets/images/${src}.${extension}`)}
     alt={alt}
+    loading={isLazyLoaded}
   />
 </div>
+
+<script>
+  // Get all images
+  const images = document.querySelectorAll("img");
+
+  // Remove animate-pulse class when image is loaded
+  images.forEach((image) => {
+    image.addEventListener("load", () => {
+      image.classList.remove("animate-pulse");
+    });
+  });
+</script>
