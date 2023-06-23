@@ -1,0 +1,28 @@
+---
+import { Image } from "@astrojs/image/components";
+const { title, src, alt, caption, extension, year, description, id } =
+  Astro.props;
+
+const isFirstEl = `${id !== 1 && "py-10"}`;
+---
+
+<div
+  id={`timeline-${id}`}
+  class={`${isFirstEl} timeline-photo grid-cols-8 gap-8 items-center transition-transform ease-in-out duration-1000 lg:grid lg:py-20 lg:h-screen lg:min-h-[52rem]`}
+>
+  <div class="col-span-3 w-full py-6">
+    {
+      year && (
+        <>
+          <h3 class="text-6xl font-display font-bold mb-3">{year}</h3>
+        </>
+      )
+    }
+    <p class="text-xl">{caption}</p>
+  </div>
+  <Image
+    class="col-span-5"
+    src={import(`../assets/images/${src}.${extension}`)}
+    alt={alt}
+  />
+</div>
