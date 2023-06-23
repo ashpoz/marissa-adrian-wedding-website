@@ -3,7 +3,7 @@ import { Image } from "@astrojs/image/components";
 const { title, src, alt, caption, extension, year, description, id } =
   Astro.props;
 
-const isFirstEl = `${id !== 1 && "py-10"}`;
+const isFirstEl = `${id === 1 ? "pb-10" : "py-10"}`;
 ---
 
 <div
