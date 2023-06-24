@@ -3,6 +3,8 @@ layout: ../layouts/BasicPage.astro
 title: "Things to Do"
 ---
 
+There are so many fun things to do in Austin! We know you'll have a great time no matter what you do, but here are a few of our recommendations.
+
 1. [Restaurants](#restaurants)
 2. [Bars](#bars)
 3. [Outdoor Activities](#outdoor-activities)
@@ -11,26 +13,28 @@ title: "Things to Do"
 
 ## Restaurants
 
-Check out the <a href="https://goo.gl/maps/jtQ9uK2e7yWxyeDU8" target="_blank">Google Maps Link 🔗</a>
+Check out the full list + locations in <a href="https://goo.gl/maps/jtQ9uK2e7yWxyeDU8" target="_blank">Google Maps</a>
 
-- Bouldin Creek Cafe
-- Thai Fresh
-- 1618 Asian Fusion
-- Mi Madre’s
-- El Alma
-- Amy’s Ice Cream
-- Patrizi’s
-- Pool Burger
-- The Salt Lick
-- Franklin’s BBQ
-- La Barbecue
-- Cisco's
+<ul class="md:flex flex-wrap">
+  <li class="shrink-1 grow-0 basis-1/2">Bouldin Creek Cafe</li>
+  <li class="shrink-1 grow-0 basis-1/2">Thai Fresh</li>
+  <li class="shrink-1 grow-0 basis-1/2">1618 Asian Fusion</li>
+  <li class="shrink-1 grow-0 basis-1/2">Mi Madre’s</li>
+  <li class="shrink-1 grow-0 basis-1/2">El Alma</li>
+  <li class="shrink-1 grow-0 basis-1/2">Amy’s Ice Cream</li>
+  <li class="shrink-1 grow-0 basis-1/2">Patrizi’s</li>
+  <li class="shrink-1 grow-0 basis-1/2">Pool Burger</li>
+  <li class="shrink-1 grow-0 basis-1/2">The Salt Lick</li>
+  <li class="shrink-1 grow-0 basis-1/2">Franklin’s BBQ</li>
+  <li class="shrink-1 grow-0 basis-1/2">La Barbecue</li>
+  <li class="shrink-1 grow-0 basis-1/2">Cisco's</li>
+</ul>
 
 ---
 
 ## Bars
 
-Check out the <a href="https://goo.gl/maps/R2SfwfghQJbeuRNK9" target="_blank">Google Maps Link 🔗</a>
+Check out the full list + locations in <a href="https://goo.gl/maps/R2SfwfghQJbeuRNK9" target="_blank">Google Maps</a>
 
 - Deep Eddy Cabaret
 - The Grackle
@@ -46,7 +50,7 @@ Check out the <a href="https://goo.gl/maps/R2SfwfghQJbeuRNK9" target="_blank">Go
 
 ## Outdoor Activities
 
-Check out the <a href="https://goo.gl/maps/f961L4FdtKWLikRD8" target="_blank">Google Maps Link 🔗</a>
+Check out the full list + locations in <a href="https://goo.gl/maps/f961L4FdtKWLikRD8" target="_blank">Google Maps</a>
 
 - Zilker Park
 - Barton Springs
@@ -54,17 +58,17 @@ Check out the <a href="https://goo.gl/maps/f961L4FdtKWLikRD8" target="_blank">Go
 - Zilker Park Disc Golf Course
 - Peter Pan Mini-Golf
 - Butler Pitch & Putt
-- Umlauf Sculpture Garden
 - Lady Bird Lake kayak, canoe, or paddleboard rental
 
 ---
 
 ## Museums
 
-Check out the <a href="https://goo.gl/maps/or39DnXoV6ARotAV9" target="_blank">Google Maps Link 🔗</a>
+Check out the full list + locations in <a href="https://goo.gl/maps/or39DnXoV6ARotAV9" target="_blank">Google Maps</a>
 
 - Blanton Museum of Art
 - Mexic-Arte Museum
+- Umlauf Sculpture Garden
 - The Contemporary Austin - Jones Center
 - The Contemporary Austin - Laguna Gloria
 - Bullock Texas State History Museum

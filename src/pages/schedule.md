@@ -3,9 +3,7 @@ layout: ../layouts/BasicPage.astro
 title: "Schedule"
 ---
 
-<div class="text-center">
 The ceremony will be a private event held with our immediate family on November 10th. We hope you’ll join us at our reception to celebrate on November 11th.
-</div>
 
 ---
 
@@ -13,7 +11,7 @@ The ceremony will be a private event held with our immediate family on November 
 
 ### Saturday, November 11th, 2023<br>5:00 pm - 10:00 pm
 
-#### The Riley Building<br>315 Lavaca St<br>Austin, TX 78701
+#### The Riley Building<br><a href="https://goo.gl/maps/pf13gqxaoBctdVkN6" target="_blank">315 Lavaca St<br>Austin, TX 78701</a>
 
 Cocktail Attire
 
@@ -33,8 +31,8 @@ We plan to keep the party going! Walk with us to a nearby bar after the receptio
 
 ## Sunday Lunch
 
-### Sunday, November 12, 2023<br>12:00 pm
+### Sunday, November 12th, 2023<br>1:00 pm
 
-#### Location TBD
+#### Cosmic Coffee + Beer Garden<br><a href="https://goo.gl/maps/Vn2ZZGH7XPZzmXgh9" target="_blank">121 Pickle Rd<br>Austin, TX 78704</a>
 
 If you’re still in town (and not too hungover), join us the next day for food and drinks. Laid-back vibes only.

@@ -1,6 +1,5 @@
 ---
 import { Image } from "@astrojs/image/components";
-import { getImage } from "@astrojs/image";
 const { title, src, alt, caption, extension, year, description, id } =
   Astro.props;
 
@@ -23,7 +22,7 @@ const isLazyLoaded: any = `${id === 1 ? "eager" : "lazy"}`;
     <p class="text-xl">{caption}</p>
   </div>
   <Image
-    class="col-span-5 bg-gray-200 animate-pulse"
+    class="col-span-5 bg-gray-200"
     src={import(`../assets/images/${src}.${extension}`)}
     alt={alt}
     loading={isLazyLoaded}
@@ -31,13 +30,20 @@ const isLazyLoaded: any = `${id === 1 ? "eager" : "lazy"}`;
 </div>
 
 <script>
+  import { isMobile } from "@lib/helpers";
+
   // Get all images
   const images = document.querySelectorAll("img");
 
-  // Remove animate-pulse class when image is loaded
-  images.forEach((image) => {
-    image.addEventListener("load", () => {
-      image.classList.remove("animate-pulse");
+  // only run if not mobile
+  if (!isMobile()) {
+    images.forEach((image) => {
+      // Add animate-pulse class to all images
+      image.classList.add("animate-pulse");
+      // Remove animate-pulse class when image is loaded
+      image.addEventListener("load", () => {
+        image.classList.remove("animate-pulse");
+      });
     });
-  });
+  }
 </script>

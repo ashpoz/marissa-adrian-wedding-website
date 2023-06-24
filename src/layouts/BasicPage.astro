@@ -9,7 +9,7 @@ export interface Props {
 }
 
 const { title } = Astro.props;
-const { frontmatter } = Astro.props;
+const { frontmatter } = Astro.props as any;
 ---
 
 <!DOCTYPE html>
@@ -27,7 +27,9 @@ const { frontmatter } = Astro.props;
       <Navbar />
     </header>
     <Hero title={frontmatter.title} />
-    <main class="prose lg:prose-xl font-serif container mx-auto pb-12">
+    <main
+      class="prose lg:prose-xl font-serif container mx-auto pb-12 prose-h3:mb-8 prose-h4:mb-8"
+    >
       <slot />
     </main>
   </body>

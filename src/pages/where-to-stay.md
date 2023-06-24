@@ -6,21 +6,20 @@ title: Where to Stay
 ## Hotel
 
 We have reserved a block of rooms at TBD. Book your room before DATE to stay in our block.
-Vacation Rental
 
 ---
 
 ## Airbnb, Vrbo, etc
 
-There are many vacation rental options in Austin! Here are our neighborhood suggestions if you go this route:
+There are many vacation rental options in Austin! Anywhere you stay will be fun, and you can get an Uber to the reception venue from anywhere in the city. That said, here are our neighborhood suggestions if you plan to go this route:
 
 ### Downtown
 
-Downtown is where you’ll find everything from the Texas State Capitol, to live music venues, to some of the best restaurants and bars in the city. This is where the venue is located so you will be able to easily walk, pedicab, or Uber to the reception.
+Downtown is where you’ll find everything from the Texas State Capitol, to live music venues, to some of the best restaurants and bars in the city.
 
 ### South Congress / South Lamar / South First
 
-These neighborhoods are very walkable to many restaurants and shops. South of the river (and downtown), but still very close to the venue. You’ll be able to easily Uber to the reception.
+These neighborhoods are very walkable to many restaurants and shops. South of the river (and downtown), but still very close to the venue.
 
 ### Zilker & Barton Hills
 
