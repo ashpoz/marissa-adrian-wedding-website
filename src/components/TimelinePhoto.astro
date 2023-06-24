@@ -42,6 +42,7 @@ const isLazyLoaded: any = `${id === 1 ? "eager" : "lazy"}`;
       image.classList.add("animate-pulse");
       // Remove animate-pulse class when image is loaded
       image.addEventListener("load", () => {
+        console.log(image);
         image.classList.remove("animate-pulse");
       });
     });
