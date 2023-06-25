@@ -28,23 +28,3 @@ const isLazyLoaded: any = `${id === 1 ? "eager" : "lazy"}`;
     loading={isLazyLoaded}
   />
 </div>
-
-<script>
-  import { isMobile } from "@lib/helpers";
-
-  // Get all images
-  const images = document.querySelectorAll("img");
-
-  // only run if not mobile
-  if (!isMobile()) {
-    images.forEach((image) => {
-      // Add animate-pulse class to all images
-      image.classList.add("animate-pulse");
-      // Remove animate-pulse class when image is loaded
-      image.addEventListener("load", () => {
-        console.log(image);
-        image.classList.remove("animate-pulse");
-      });
-    });
-  }
-</script>
