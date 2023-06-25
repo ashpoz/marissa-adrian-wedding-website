@@ -25,7 +25,7 @@ const RSVP = () => {
             <p className="text-xl mt-4">
               If you have any further questions about the event, head over to
               the{" "}
-              <a className="text-redwood underline" href="/faq">
+              <a className="text-redwood underline" href="/faqs">
                 FAQ page
               </a>
               .

@@ -30,4 +30,4 @@ We love your kids, but because of the venue type, location, and capacity restrai
 
 ## I have other questions…
 
-Please reach out to us! You can call or text Marissa or Adrian, or send us an email at [marissa.adrian.wedding@gmail](mailto:marissa.adrian.wedding@gmail.com)
+Please reach out to us! You can call or text Marissa or Adrian, or send us an email at [marissa.adrian.wedding@gmail.com](mailto:marissa.adrian.wedding@gmail.com)
