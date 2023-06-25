@@ -29,10 +29,10 @@ We plan to keep the party going! Walk with us to a nearby bar after the receptio
 
 ---
 
-## Sunday Lunch
+## Farewell Lunch
 
 ### Sunday, November 12th, 2023<br>1:00 pm
 
 #### Cosmic Coffee + Beer Garden<br><a href="https://goo.gl/maps/Vn2ZZGH7XPZzmXgh9" target="_blank">121 Pickle Rd<br>Austin, TX 78704</a>
 
-If you’re still in town (and not too hungover), join us the next day for food and drinks. Laid-back vibes only.
+Marissa and Adrian will be at Cosmic Coffee + Beer Garden for lunch the following day. If you are still in town feel free to drop by! Cosmic Coffee serves coffee, beer & wine, and has several food trucks. Go to their <a href="https://cosmichospitalitygroup.com/south-austin/" target="_blank">website</a> to see menu items and pricing.
