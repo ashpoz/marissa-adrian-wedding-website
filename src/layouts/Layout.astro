@@ -23,6 +23,18 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
+  <style is:global>
+    /* buttons */
+    .btn {
+      @apply text-center px-10 py-3 border-solid transition-colors;
+    }
+    .btn-primary {
+      @apply text-white bg-redwood border-redwood border-2 hover:bg-redwood-dark transition-colors;
+    }
+    .btn-secondary {
+      @apply text-redwood border-redwood border-2 hover:bg-redwood-dark hover:text-white transition-colors;
+    }
+  </style>
   <body>
     <header>
       <Navbar />
@@ -52,15 +64,5 @@ const { title } = Astro.props;
   code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-  }
-  /* buttons */
-  .btn {
-    @apply text-center px-10 py-3 border-solid transition-colors;
-  }
-  .btn-primary {
-    @apply text-white bg-redwood border-redwood border-2 hover:bg-redwood-dark transition-colors;
-  }
-  .btn-secondary {
-    @apply text-redwood border-redwood border-2 hover:bg-redwood-dark hover:text-white transition-colors;
   }
 </style>
