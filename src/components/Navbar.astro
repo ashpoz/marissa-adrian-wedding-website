@@ -1,7 +1,6 @@
 ---
 import { Image } from "@astrojs/image/components";
 import logoIcon from "@assets/icons/logo-burgundy.svg";
-const currentPath = Astro.url.pathname;
 
 const menuItems = [
   {
@@ -83,8 +82,6 @@ const menuItems = [
         class="container px-6 mx-auto h-full flex flex-col justify-evenly text-center overflow-auto min-h-100 lg:py-0 lg:bg-transparent lg:items-center lg:flex-row lg:relative lg:flex lg:ml-auto lg:text-left lg:px-0"
       >
         {
-          // TODO: Add active class to current page
-          // TODO: Add hover effect
           menuItems.map((item, index) =>
             menuItems.length - 1 === index ? (
               <li>
@@ -96,9 +93,7 @@ const menuItems = [
               <li>
                 <a
                   href={item.path}
-                  class={`flex lg:px-3 py-3 text-white lg:text-gray-600 hover:text-slate-200 lg:hover:text-redwood-light ${
-                    currentPath === item.path && "active"
-                  }`}
+                  class="flex lg:px-3 py-3 text-white lg:text-gray-600 hover:text-slate-200 lg:hover:text-redwood-light"
                 >
                   {item.title}
                 </a>
@@ -116,6 +111,22 @@ const menuItems = [
     "button"
   ) as HTMLButtonElement;
   const menu: HTMLElement = document.querySelector(".menu") as HTMLElement;
+  const menuItems: NodeListOf<HTMLAnchorElement> = document.querySelectorAll(
+    "a"
+  ) as NodeListOf<HTMLAnchorElement>;
+  const currentPath = window.location.pathname;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    menuItems.forEach((item) => {
+      let menuPath = new URL(item.href).pathname;
+
+      if (item.classList.contains("btn")) {
+        return;
+      } else if (menuPath === currentPath) {
+        item.classList.add("active");
+      }
+    });
+  });
 
   menuButton.addEventListener("click", () => {
     menuButton.classList.toggle("active");
