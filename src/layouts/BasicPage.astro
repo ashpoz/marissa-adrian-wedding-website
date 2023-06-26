@@ -32,9 +32,11 @@ const { frontmatter } = Astro.props as any;
     <meta property="og:image" content="/social-media-image.jpg" />
     <title>{frontmatter.title}</title>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XE24XZYQ7M"
-    ></script>
-    <script>
+    <script
+      type="text/partytown"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XE24XZYQ7M"></script>
+    <script type="text/partytown">
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
