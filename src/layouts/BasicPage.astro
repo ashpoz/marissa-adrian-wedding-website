@@ -1,6 +1,7 @@
 ---
 import Navbar from "@components/Navbar.astro";
 import Hero from "@components/Hero.astro";
+import "../styles/global.css";
 import "@fontsource-variable/noto-serif-display";
 import "@fontsource/merriweather";
 
@@ -16,7 +17,10 @@ const { frontmatter } = Astro.props as any;
 <html lang="en" class="min-h-full">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta
+      name="description"
+      content="Adrian & Marissa are getting married on November 11th, 2023 in Austin TX"
+    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
@@ -47,41 +51,3 @@ const { frontmatter } = Astro.props as any;
     </main>
   </body>
 </html>
-<style is:global>
-  :root {
-    --accent: 124, 58, 237;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      #da62c4 30%,
-      white 60%
-    );
-  }
-  html {
-    font-family: system-ui, sans-serif;
-    background: radial-gradient(
-        76.33% 112.25% at 90.12% 19.77%,
-        #f3bc9f 0%,
-        white 83.33%
-      )
-      no-repeat;
-  }
-  code {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-  }
-  /* buttons */
-  .btn {
-    @apply text-center px-10 py-3 border-solid transition-colors;
-  }
-  .btn-primary {
-    @apply text-white bg-redwood border-redwood border-2 hover:bg-redwood-dark transition-colors;
-  }
-  .btn-secondary {
-    @apply text-redwood border-redwood border-2 hover:bg-redwood-dark hover:text-white transition-colors;
-  }
-  /* links */
-  main a:not(.btn) {
-    @apply text-redwood hover:text-redwood-dark transition-colors;
-  }
-</style>
