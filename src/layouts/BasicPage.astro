@@ -24,6 +24,12 @@ const { frontmatter } = Astro.props as any;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
+    <meta
+      property="og:title"
+      content="Adrian & Marissa are getting married on November 11th, 2023 in Austin TX"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/social-media-image.jpg" />
     <title>{frontmatter.title}</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XE24XZYQ7M"
