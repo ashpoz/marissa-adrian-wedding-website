@@ -11,6 +11,5 @@ export default defineConfig({
   integrations: [tailwind(), mdx(), react(), image({
     serviceEntryPoint: "@astrojs/image/sharp"
   })],
-  scopedStyleStrategy: "class",
   adapter: vercel()
 });
