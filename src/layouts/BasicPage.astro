@@ -1,7 +1,6 @@
 ---
 import Navbar from "@components/Navbar.astro";
 import Hero from "@components/Hero.astro";
-import "../styles/global.css";
 import "@fontsource-variable/noto-serif-display";
 import "@fontsource/merriweather";
 
@@ -37,6 +36,9 @@ const { frontmatter } = Astro.props as any;
 
       gtag("config", "G-XE24XZYQ7M");
     </script>
+    <style is:inline>
+      @import "/src/styles/global.css";
+    </style>
   </head>
 
   <body>
