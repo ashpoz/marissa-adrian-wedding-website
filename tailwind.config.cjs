@@ -9,11 +9,11 @@ module.exports = {
 				sm: '0rem',
 			},
 		},
+		fontFamily: {
+			display: ["Noto Serif Display Variable", "serif"],
+			serif: ["Merriweather", "serif"],
+		},
 		extend: {
-			fontFamily: {
-				display: ["Noto Serif Display Variable", "serif"],
-				serif: ["Merriweather", "serif"],
-			},
 			colors: {
 				"peach": {
 					100: "#FAE4D8",
