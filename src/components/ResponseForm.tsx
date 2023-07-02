@@ -88,7 +88,6 @@ const ResponseForm = () => {
     });
   };
 
-  // TODO: this should be refactored
   const handleRadioChange = (
     labelEl: HTMLElement,
     radioEl: HTMLInputElement
@@ -236,7 +235,9 @@ const ResponseForm = () => {
         </div>
       )}
 
-      <span className="text-gray-700">Song Requests:</span>
+      <span className="text-gray-700">
+        Song Requests <span className="text-gray-400">(optional)</span>
+      </span>
       <input
         type="text"
         className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
@@ -245,7 +246,9 @@ const ResponseForm = () => {
       />
       <ErrorOutput errType={errors?.songRequests?.type} />
 
-      <span className="text-gray-700">Note:</span>
+      <span className="text-gray-700">
+        Note <span className="text-gray-400">(optional)</span>
+      </span>
       <input
         type="text"
         className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
