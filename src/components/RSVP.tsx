@@ -12,7 +12,7 @@ const RSVP = () => {
       {!$formFields.completed && (
         <>
           <p className="text-xl text-center">
-            Please RSVP by August 11th. We hope we get to celebrate together!
+            Please RSVP by August 18th. We hope we get to celebrate together!
           </p>
         </>
       )}
