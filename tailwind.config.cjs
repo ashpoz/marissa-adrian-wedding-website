@@ -59,6 +59,12 @@ module.exports = {
 						},
 						h4: {
 							textAlign: "center"
+						},
+						p: {
+							textAlign: "center"
+						},
+						ul: {
+							textAlign: "left"
 						}
 					},
 				},
