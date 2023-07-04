@@ -48,7 +48,18 @@ module.exports = {
 						"--tw-prose-bullets": "#91453B",
 						hr: {
 							borderColor: "#91453B",
+							marginLeft: "1rem",
+							marginRight: "1rem",
 						},
+						h2: {
+							textAlign: "center"
+						},
+						h3: {
+							textAlign: "center"
+						},
+						h4: {
+							textAlign: "center"
+						}
 					},
 				},
 			},

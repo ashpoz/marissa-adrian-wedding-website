@@ -78,9 +78,9 @@ const SearchForm = () => {
       {!$formFields.results && (
         <>
           <div className="text-md mt-4 mb-6 py-2 px-2 text-gray-700">
-            ✔️ Please provide the full name of one person in your group. If
-            you're responding for yourself and a guest or your family, you can
-            RSVP for your entire group on the next page.
+            ✔️ Please enter your full name. If you're responding for yourself
+            and a guest or your family, you can RSVP for your entire group on
+            the next page.
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <span className="text-gray-700">Full Name:</span>

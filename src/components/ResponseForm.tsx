@@ -144,9 +144,7 @@ const ResponseForm = () => {
       {/* if they have a wedding party, incl. below text and map() fn */}
       {$formFields.party && $formFields.party.length > 1 && (
         <div>
-          <p className="text-lg mt-2 mb-8">
-            Please RSVP for your wedding party:
-          </p>
+          <p className="text-lg mt-2 mb-8">Please RSVP below:</p>
           {$formFields.party.map((member, index) => (
             <div key={index} className="mt-4 mb-4">
               <fieldset className="mb-2 flex">
@@ -155,7 +153,7 @@ const ResponseForm = () => {
                   <strong className="font-bolder text-redwood uppercase">
                     {member.name}
                   </strong>{" "}
-                  be able to attend our wedding?
+                  be able to attend our reception?
                 </legend>
                 <label className="w-full cursor-pointer border border-gray-700 rounded p-3">
                   <input
@@ -200,7 +198,7 @@ const ResponseForm = () => {
               <strong className="font-bolder text-redwood uppercase">
                 {$formFields.name}
               </strong>{" "}
-              be able to attend our wedding?
+              be able to attend our reception?
             </legend>
             <label className="w-full cursor-pointer border border-gray-700 rounded p-3">
               <input
@@ -249,12 +247,19 @@ const ResponseForm = () => {
       <span className="text-gray-700">
         Note <span className="text-gray-400">(optional)</span>
       </span>
-      <input
+      <textarea
+        name=""
+        className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
+        rows="3"
+        placeholder="Feel free to leave any newlywed advice for us!"
+        {...register("note")}
+      ></textarea>
+      {/* <input
         type="text"
         className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
         placeholder="Feel free to leave any newlywed advice for us!"
         {...register("note")}
-      />
+      /> */}
       <ErrorOutput errType={errors?.note?.type} />
 
       <SubmitButton isSubmitting={isSubmitting} />

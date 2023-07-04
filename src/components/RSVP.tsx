@@ -11,8 +11,12 @@ const RSVP = () => {
     <>
       {!$formFields.completed && (
         <>
-          <p className="text-xl text-center">
-            Please RSVP by August 18th. We hope we get to celebrate together!
+          <p className="text-lg text-center mb-6">
+            We hope you'll join us at our reception on Saturday, November 11th,
+            2023 at The Riley Building in Austin, TX.
+          </p>
+          <p className="text-lg text-center">
+            Please RSVP below by August 18th.
           </p>
         </>
       )}
