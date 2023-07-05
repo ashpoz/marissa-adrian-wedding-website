@@ -4,7 +4,6 @@ import { getGuestlistParty } from "../../firebase/guestlist";
 export const post: APIRoute = async ({ request }) => {
   const data = await request.json();
   const guestlistParty = data[0]?.group;
-  // console.log(data);
 
   // If we have a group, get the party and return it
   if (data[0]?.group) {

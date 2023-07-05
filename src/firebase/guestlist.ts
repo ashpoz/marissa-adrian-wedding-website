@@ -46,7 +46,6 @@ export const getGuestlistParty = async (arr: Array<String>) => {
 
   // loop through the party and add each guest to the partyArray
   party.forEach((obj) => {
-    // TODO: fix this type
     Object.values(obj).forEach((value: any) => {
       let dataId = value["Id"];
       let name = value["Name"];
