@@ -22,7 +22,7 @@
     "@nanostores/react": "^0.7.1",
     "@types/react": "^18.2.9",
     "@types/react-dom": "^18.2.4",
-    "astro": "^2.7.0",
+    "astro": "^2.7.4",
     "firebase": "^9.22.2",
     "firebase-admin": "^11.9.0",
     "google-spreadsheet": "^3.3.0",
