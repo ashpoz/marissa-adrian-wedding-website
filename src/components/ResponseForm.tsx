@@ -248,18 +248,11 @@ const ResponseForm = () => {
         Note <span className="text-gray-400">(optional)</span>
       </span>
       <textarea
-        name=""
         className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
-        rows="3"
+        rows={3}
         placeholder="Feel free to leave any newlywed advice for us!"
         {...register("note")}
       ></textarea>
-      {/* <input
-        type="text"
-        className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
-        placeholder="Feel free to leave any newlywed advice for us!"
-        {...register("note")}
-      /> */}
       <ErrorOutput errType={errors?.note?.type} />
 
       <SubmitButton isSubmitting={isSubmitting} />
