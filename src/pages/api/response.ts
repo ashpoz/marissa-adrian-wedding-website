@@ -15,9 +15,7 @@ const updateCell = async (row: any, column: any, value: any) => {
 };
 
 const loopThruGuests = async (partyArr: any, callback: Function) => {
-  for (const guest of partyArr) {
-    await callback(guest);
-  }
+  await Promise.all(partyArr.map(callback));
 };
 
 export const post: APIRoute = async ({ request }) => {
