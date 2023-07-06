@@ -55,6 +55,11 @@ const ResponseForm = () => {
       });
     } catch (err) {
       console.log(err);
+
+      formFields.set({
+        ...$formFields,
+        completed: false,
+      });
     }
   };
 
