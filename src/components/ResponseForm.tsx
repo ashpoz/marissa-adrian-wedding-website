@@ -18,6 +18,7 @@ const ResponseForm = () => {
     register,
     handleSubmit,
     setValue,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<IFormInput>();
 
@@ -37,7 +38,7 @@ const ResponseForm = () => {
     });
 
     try {
-      await fetch("/api/response", {
+      const response = await fetch("/api/response", {
         method: "POST",
         body: JSON.stringify({
           id: $formFields.id,
@@ -49,7 +50,14 @@ const ResponseForm = () => {
         }),
       });
 
-      console.log(data);
+      // if response is not ok, set completed to false
+      if (!response.ok) {
+        setError("root.serverError", {
+          type: "server",
+          message: "Something went wrong. Please try again",
+        });
+        throw new Error(response.statusText);
+      }
 
       formFields.set({
         ...$formFields,
@@ -57,11 +65,6 @@ const ResponseForm = () => {
       });
     } catch (err) {
       console.log(err);
-
-      formFields.set({
-        ...$formFields,
-        completed: false,
-      });
     }
   };
 
@@ -259,6 +262,18 @@ const ResponseForm = () => {
       ></textarea>
       <ErrorOutput errType={errors?.note?.type} />
 
+      {errors?.root?.serverError.type === "server" && ( // if server error
+        <p role="alert" className="mt-1 mb-4 text-red-800">
+          There was an error submitting your response. Please try again. If you
+          have any issues, please email us at{" "}
+          <a
+            className="underline"
+            href="mailto:marissa.adrian.wedding@gmail.com"
+          >
+            marissa.adrian.wedding@gmail.com
+          </a>
+        </p>
+      )}
       <SubmitButton isSubmitting={isSubmitting} />
     </form>
   );

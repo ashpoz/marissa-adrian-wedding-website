@@ -10,10 +10,12 @@ const PRIVATE_KEY = import.meta.env.GOOGLE_SHEETS_PRIVATE_KEY;
 
 const updateCell = async (row: any, column: any, value: any) => {
   try {
+    // throw new Error("Error");
     row[column] = value;
     await row.save();
   } catch (error) {
     console.error("Error saving google sheet cell: ", error);
+    throw error;
   }
 };
 
@@ -26,6 +28,7 @@ const updatePartyRSVP = async (partyArr: any, rows: any) => {
       await currentRow.save();
     } catch (error) {
       console.error(`Error saving RSVP status for guest ${id}:`, error);
+      throw error;
     }
   }
 };
