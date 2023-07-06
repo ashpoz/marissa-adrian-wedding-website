@@ -64,6 +64,10 @@ const ResponseForm = () => {
         completed: true,
       });
     } catch (err) {
+      setError("root.serverError", {
+        type: "server",
+        message: "Something went wrong. Please try again",
+      });
       console.log(err);
     }
   };
@@ -265,7 +269,7 @@ const ResponseForm = () => {
       {errors?.root?.serverError.type === "server" && ( // if server error
         <p role="alert" className="mt-1 mb-4 text-red-800">
           There was an error submitting your response. Please try again. If you
-          have any issues, please email us at{" "}
+          continue having any issues, please email us at{" "}
           <a
             className="underline"
             href="mailto:marissa.adrian.wedding@gmail.com"
