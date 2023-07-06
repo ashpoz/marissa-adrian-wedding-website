@@ -29,8 +29,6 @@ const ResponseForm = () => {
       };
     });
 
-    console.log(data);
-
     formFields.set({
       ...$formFields,
       note: data.note,
@@ -51,6 +49,8 @@ const ResponseForm = () => {
     });
 
     const resData = await response.json();
+
+    console.log(resData);
 
     if (resData.status === "success") {
       formFields.set({

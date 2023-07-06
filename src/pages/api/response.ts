@@ -42,7 +42,7 @@ export const post: APIRoute = async ({ request }) => {
     // loads all rows
     const rows = await sheet.getRows();
     // grabs main guest row
-    const mainGuestRow = rows[guestId];
+    const mainGuestRow = await rows[guestId];
 
     // update note for main guest
     updateCell(mainGuestRow, "Note", note);
