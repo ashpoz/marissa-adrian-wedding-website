@@ -85,7 +85,10 @@ const ResponseForm = () => {
   ) => {
     if (!labelEl || !radioEl) return;
 
-    radioEl.checked && labelEl.classList.add(radioStyles[radioEl.value]);
+    radioEl.checked &&
+      labelEl.classList.add(
+        radioStyles[radioEl.value as keyof typeof radioStyles]
+      );
   };
 
   const clearRadioStyling = (radioEls: NodeList) => {
@@ -94,7 +97,7 @@ const ResponseForm = () => {
     radioEls.forEach((el) => {
       const labelEl = el.parentNode as HTMLElement;
       Object.keys(radioStyles).forEach((key) => {
-        labelEl.classList.remove(radioStyles[key]);
+        labelEl.classList.remove(radioStyles[key as keyof typeof radioStyles]);
       });
     });
   };
@@ -262,7 +265,9 @@ const ResponseForm = () => {
         className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
         rows={3}
         placeholder="Feel free to leave any newlywed advice for us!"
-        {...register("note")}
+        {...register("note", {
+          maxLength: 500,
+        })}
       ></textarea>
       <ErrorOutput errType={errors?.note?.type} />
 

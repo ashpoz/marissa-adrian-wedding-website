@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 const errorMessages: Record<string, ReactNode> = {
   required: "This field is required",
   minLength: "Too short",
+  maxLength: "Please keep text under 500 characters",
 };
 
 const ErrorOutput = ({ errType }: { errType: any }) => {
