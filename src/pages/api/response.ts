@@ -38,7 +38,7 @@ export const post: APIRoute = async ({ request }) => {
     await doc.loadInfo();
 
     // loads sheet by id
-    const sheet = doc.sheetsById[SHEET_ID];
+    const sheet = await doc.sheetsById[SHEET_ID];
     // loads all rows
     const rows = await sheet.getRows();
     // grabs main guest row
