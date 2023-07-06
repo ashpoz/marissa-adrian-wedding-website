@@ -9,13 +9,25 @@ const CLIENT_EMAIL = import.meta.env.GOOGLE_SHEETS_CLIENT_EMAIL;
 const PRIVATE_KEY = import.meta.env.GOOGLE_SHEETS_PRIVATE_KEY;
 
 const updateCell = async (row: any, column: any, value: any) => {
-  if (!row) return;
-  row[column] = value;
-  await row.save();
+  try {
+    row[column] = value;
+    await row.save();
+  } catch (error) {
+    console.error("Error saving google sheet cell: ", error);
+  }
 };
 
-const loopThruGuests = async (partyArr: any, callback: Function) => {
-  await Promise.all(partyArr.map(callback));
+const updatePartyRSVP = async (partyArr: any, rows: any) => {
+  for (const guest of partyArr) {
+    const { id, attending } = guest;
+    const currentRow = rows[id - 1];
+    try {
+      currentRow["RSVP"] = attending; // Batch update
+      await currentRow.save();
+    } catch (error) {
+      console.error(`Error saving RSVP status for guest ${id}:`, error);
+    }
+  }
 };
 
 export const post: APIRoute = async ({ request }) => {
@@ -41,28 +53,21 @@ export const post: APIRoute = async ({ request }) => {
     // grabs main guest row
     const mainGuestRow = await rows[guestId];
 
-    // update note for main guest
-    updateCell(mainGuestRow, "Note", note);
-    // update song requests for main guest
-    updateCell(mainGuestRow, "Song Requests", songRequests);
-
+    // if guest has a party, update RSVP for each guest in party
     if (data.party.length > 0) {
       // update RSVP for each guest in main guest's party
-      const updatePromises = data.party.map(async (guest: any) => {
-        const { id, attending } = guest;
-        const row = rows[id - 1];
-
-        try {
-          row["RSVP"] = attending; // Batch update
-          await row.save();
-        } catch (error) {
-          console.error("Error: ", error);
-        }
-      });
-      await Promise.all(updatePromises);
+      await Promise.all([
+        updatePartyRSVP(data.party, rows),
+        updateCell(mainGuestRow, "Note", note),
+        updateCell(mainGuestRow, "Song Requests", songRequests),
+      ]);
     } else {
       // update RSVP for main guest
-      await updateCell(mainGuestRow, "RSVP", data.attending);
+      await Promise.all([
+        updateCell(mainGuestRow, "RSVP", data.attending),
+        updateCell(mainGuestRow, "Note", note),
+        updateCell(mainGuestRow, "Song Requests", songRequests),
+      ]);
     }
     // Do something with the data, then return a success response
     return new Response(
