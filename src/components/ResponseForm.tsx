@@ -49,6 +49,8 @@ const ResponseForm = () => {
         }),
       });
 
+      console.log(data);
+
       formFields.set({
         ...$formFields,
         completed: true,
