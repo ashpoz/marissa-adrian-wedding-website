@@ -8,13 +8,13 @@ const SHEET_ID = import.meta.env.GOOGLE_SHEETS_SHEET_ID;
 const CLIENT_EMAIL = import.meta.env.GOOGLE_SHEETS_CLIENT_EMAIL;
 const PRIVATE_KEY = import.meta.env.GOOGLE_SHEETS_PRIVATE_KEY;
 
-const updateCell = (row: any, column: any, value: any) => {
+const updateCell = async (row: any, column: any, value: any) => {
   if (!row) return;
   row[column] = value;
   row.save();
 };
 
-const loopThruGuests = (partyArr: any, callback: Function) => {
+const loopThruGuests = async (partyArr: any, callback: Function) => {
   partyArr.forEach((guest: Object) => {
     callback(guest);
   });
@@ -37,30 +37,30 @@ export const post: APIRoute = async ({ request }) => {
     await doc.loadInfo();
 
     // loads sheet by id
-    const sheet = await doc.sheetsById[SHEET_ID];
+    const sheet = doc.sheetsById[SHEET_ID];
     // loads all rows
     const rows = await sheet.getRows();
     // grabs main guest row
     const mainGuestRow = await rows[guestId];
 
     // update note for main guest
-    updateCell(mainGuestRow, "Note", note);
+    await updateCell(mainGuestRow, "Note", note);
     // update song requests for main guest
-    updateCell(mainGuestRow, "Song Requests", songRequests);
+    await updateCell(mainGuestRow, "Song Requests", songRequests);
 
     if (data.party.length > 0) {
       // update RSVP for each guest in main guest's party
-      loopThruGuests(data.party, (guest: any) => {
+      loopThruGuests(data.party, async (guest: any) => {
         // grab id and attending from guest
         const { id, attending } = guest;
         // find row in google sheets
         const row = rows[id - 1];
         // update row with new RSVP
-        updateCell(row, "RSVP", attending);
+        await updateCell(row, "RSVP", attending);
       });
     } else {
       // update RSVP for main guest
-      updateCell(mainGuestRow, "RSVP", data.attending);
+      await updateCell(mainGuestRow, "RSVP", data.attending);
     }
   } catch (error: any) {
     console.error("Error: ", error);
