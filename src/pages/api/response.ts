@@ -48,17 +48,21 @@ export const post: APIRoute = async ({ request }) => {
 
     if (data.party.length > 0) {
       // update RSVP for each guest in main guest's party
-      loopThruGuests(data.party, async (guest: any) => {
-        // grab id and attending from guest
+      const updatePromises = data.party.map(async (guest: any) => {
         const { id, attending } = guest;
-        // find row in google sheets
         const row = rows[id - 1];
-        // update row with new RSVP
-        updateCell(row, "RSVP", attending);
+
+        try {
+          row["RSVP"] = attending; // Batch update
+          await row.save();
+        } catch (error) {
+          console.error("Error: ", error);
+        }
       });
+      await Promise.all(updatePromises);
     } else {
       // update RSVP for main guest
-      updateCell(mainGuestRow, "RSVP", data.attending);
+      await updateCell(mainGuestRow, "RSVP", data.attending);
     }
     // Do something with the data, then return a success response
     return new Response(
