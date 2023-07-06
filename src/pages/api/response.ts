@@ -11,7 +11,7 @@ const PRIVATE_KEY = import.meta.env.GOOGLE_SHEETS_PRIVATE_KEY;
 const updateCell = async (row: any, column: any, value: any) => {
   if (!row) return;
   row[column] = value;
-  row.save();
+  await row.save();
 };
 
 const loopThruGuests = async (partyArr: any, callback: Function) => {
@@ -44,9 +44,9 @@ export const post: APIRoute = async ({ request }) => {
     const mainGuestRow = await rows[guestId];
 
     // update note for main guest
-    await updateCell(mainGuestRow, "Note", note);
+    updateCell(mainGuestRow, "Note", note);
     // update song requests for main guest
-    await updateCell(mainGuestRow, "Song Requests", songRequests);
+    updateCell(mainGuestRow, "Song Requests", songRequests);
 
     if (data.party.length > 0) {
       // update RSVP for each guest in main guest's party
@@ -56,11 +56,11 @@ export const post: APIRoute = async ({ request }) => {
         // find row in google sheets
         const row = rows[id - 1];
         // update row with new RSVP
-        await updateCell(row, "RSVP", attending);
+        updateCell(row, "RSVP", attending);
       });
     } else {
       // update RSVP for main guest
-      await updateCell(mainGuestRow, "RSVP", data.attending);
+      updateCell(mainGuestRow, "RSVP", data.attending);
     }
     // Do something with the data, then return a success response
     return new Response(
@@ -74,7 +74,7 @@ export const post: APIRoute = async ({ request }) => {
     console.error("Error: ", error);
     return new Response(
       JSON.stringify({
-        status: "Error!",
+        status: "error",
         message: error.message,
       }),
       { status: 400 }
