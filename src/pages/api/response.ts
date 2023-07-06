@@ -62,6 +62,14 @@ export const post: APIRoute = async ({ request }) => {
       // update RSVP for main guest
       await updateCell(mainGuestRow, "RSVP", data.attending);
     }
+    // Do something with the data, then return a success response
+    return new Response(
+      JSON.stringify({
+        status: "success",
+        data: data,
+      }),
+      { status: 200 }
+    );
   } catch (error: any) {
     console.error("Error: ", error);
     return new Response(
@@ -72,13 +80,4 @@ export const post: APIRoute = async ({ request }) => {
       { status: 400 }
     );
   }
-
-  // Do something with the data, then return a success response
-  return new Response(
-    JSON.stringify({
-      status: "success",
-      data: data,
-    }),
-    { status: 200 }
-  );
 };
