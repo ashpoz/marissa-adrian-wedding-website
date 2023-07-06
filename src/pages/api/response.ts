@@ -8,8 +8,6 @@ const SHEET_ID = import.meta.env.GOOGLE_SHEETS_SHEET_ID;
 const CLIENT_EMAIL = import.meta.env.GOOGLE_SHEETS_CLIENT_EMAIL;
 const PRIVATE_KEY = import.meta.env.GOOGLE_SHEETS_PRIVATE_KEY;
 
-const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
-
 const updateCell = (row: any, column: any, value: any) => {
   if (!row) return;
   row[column] = value;
@@ -26,6 +24,7 @@ export const post: APIRoute = async ({ request }) => {
   const data: any = await request.json();
   const guestId: Number = data.id - 1;
   const { note, songRequests } = data;
+  const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
   try {
     // loads the credentials from environment variables
