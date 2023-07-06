@@ -17,5 +17,8 @@ export default defineConfig({
       forward: ["dataLayer.push"],
     },
   })],
-  adapter: vercel()
+  adapter: vercel(),
+  build: {
+    split: true,
+  },
 });
