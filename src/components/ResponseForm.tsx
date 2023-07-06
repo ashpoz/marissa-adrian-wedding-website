@@ -36,30 +36,25 @@ const ResponseForm = () => {
       party: partyArr,
     });
 
-    const response = await fetch("/api/response", {
-      method: "POST",
-      body: JSON.stringify({
-        id: $formFields.id,
-        attending: data.attending,
-        name: $formFields.name,
-        note: data.note,
-        songRequests: data.songRequests,
-        party: partyArr,
-      }),
-    });
+    try {
+      await fetch("/api/response", {
+        method: "POST",
+        body: JSON.stringify({
+          id: $formFields.id,
+          attending: data.attending,
+          name: $formFields.name,
+          note: data.note,
+          songRequests: data.songRequests,
+          party: partyArr,
+        }),
+      });
 
-    const resData = await response.json();
-
-    console.log(resData);
-
-    if (resData.status === "success") {
       formFields.set({
         ...$formFields,
         completed: true,
       });
-    } else {
-      // TODO: need to display error to user
-      throw new Error("Something went wrong");
+    } catch (err) {
+      console.log(err);
     }
   };
 
