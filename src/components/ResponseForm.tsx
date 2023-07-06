@@ -29,6 +29,8 @@ const ResponseForm = () => {
       };
     });
 
+    console.log(data);
+
     formFields.set({
       ...$formFields,
       note: data.note,
@@ -253,12 +255,6 @@ const ResponseForm = () => {
         placeholder="Feel free to leave any newlywed advice for us!"
         {...register("note")}
       ></textarea>
-      {/* <input
-        type="text"
-        className="mt-2 mb-4 block w-full px-2 py-2 rounded border border-solid border-gray-300"
-        placeholder="Feel free to leave any newlywed advice for us!"
-        {...register("note")}
-      /> */}
       <ErrorOutput errType={errors?.note?.type} />
 
       <SubmitButton isSubmitting={isSubmitting} />
