@@ -9,6 +9,10 @@ interface IFormInput {
   attending: String;
   songRequests?: Array<String>;
   note?: String;
+  access_key: String;
+  subject: String;
+  from_name: String;
+  botcheck: String;
 }
 
 const ResponseForm = () => {
@@ -36,6 +40,24 @@ const ResponseForm = () => {
       songRequests: data.songRequests,
       party: partyArr,
     });
+
+    // TODO: send other formFields data to web3forms
+    try {
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data, null, 2),
+      });
+    } catch (err) {
+      setError("root.serverError", {
+        type: "server",
+        message: "Something went wrong. Please try again",
+      });
+      console.log(err);
+    }
 
     try {
       const response = await fetch("/api/response", {
@@ -152,6 +174,25 @@ const ResponseForm = () => {
       aria-labelledby="attending-response-form"
       className="py-10"
     >
+      {/* hidden web3form fields */}
+      <input
+        type="hidden"
+        value="d266888d-eb0f-4d6c-be36-0634302278dd"
+        {...register("access_key")}
+      />
+      <input type="hidden" value="New submission" {...register("subject")} />
+      <input
+        type="hidden"
+        value="Mariss and Adrian Wedding RSVP Form"
+        {...register("from_name")}
+      />
+      <input
+        type="checkbox"
+        id=""
+        className="hidden"
+        style={{ display: "none" }}
+        {...register("botcheck")}
+      ></input>
       <h3>
         <strong className="text-2xl">Hi, {$formFields.name}!</strong>
       </h3>
