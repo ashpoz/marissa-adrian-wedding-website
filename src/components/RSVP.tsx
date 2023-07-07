@@ -16,7 +16,7 @@ const RSVP = () => {
             2023 at The Riley Building in Austin, TX.
           </p>
           <p className="text-lg text-center">
-            Please RSVP below by August 18th.
+            Please RSVP below by August 25th.
           </p>
         </>
       )}

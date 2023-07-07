@@ -1,19 +1,11 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
-import { FormFields, formFields } from "../lib/formStore";
+import { FormFields, formFields } from "@lib/formStore";
+import { sendEmail, sendToSheets } from "@lib/formFunctions";
+import type { IFormInput } from "@lib/formTypes";
 import ErrorOutput from "./ErrorOutput";
 import SubmitButton from "./SubmitButton";
-
-interface IFormInput {
-  attending: String;
-  songRequests?: Array<String>;
-  note?: String;
-  access_key: String;
-  subject: String;
-  from_name: String;
-  botcheck: String;
-}
 
 const ResponseForm = () => {
   const $formFields = useStore(formFields);
@@ -27,6 +19,7 @@ const ResponseForm = () => {
   } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    // map over party array to include attending status
     const partyArr = $formFields.party?.map((member, index) => {
       return {
         ...member,
@@ -34,6 +27,7 @@ const ResponseForm = () => {
       };
     });
 
+    // set formFields to include new data
     formFields.set({
       ...$formFields,
       note: data.note,
@@ -41,46 +35,14 @@ const ResponseForm = () => {
       party: partyArr,
     });
 
-    // TODO: send other formFields data to web3forms
     try {
-      await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data, null, 2),
-      });
-    } catch (err) {
-      setError("root.serverError", {
-        type: "server",
-        message: "Something went wrong. Please try again",
-      });
-      console.log(err);
-    }
+      // send data to web3forms
+      await Promise.all([
+        sendEmail($formFields, data),
+        sendToSheets($formFields, data, partyArr as any),
+      ]);
 
-    try {
-      const response = await fetch("/api/response", {
-        method: "POST",
-        body: JSON.stringify({
-          id: $formFields.id,
-          attending: data.attending,
-          name: $formFields.name,
-          note: data.note,
-          songRequests: data.songRequests,
-          party: partyArr,
-        }),
-      });
-
-      // if response is not ok, set completed to false
-      if (!response.ok) {
-        setError("root.serverError", {
-          type: "server",
-          message: "Something went wrong. Please try again",
-        });
-        throw new Error(response.statusText);
-      }
-
+      // if successful, set completed to true
       formFields.set({
         ...$formFields,
         completed: true,
@@ -174,25 +136,6 @@ const ResponseForm = () => {
       aria-labelledby="attending-response-form"
       className="py-10"
     >
-      {/* hidden web3form fields */}
-      <input
-        type="hidden"
-        value="d266888d-eb0f-4d6c-be36-0634302278dd"
-        {...register("access_key")}
-      />
-      <input type="hidden" value="New submission" {...register("subject")} />
-      <input
-        type="hidden"
-        value="Mariss and Adrian Wedding RSVP Form"
-        {...register("from_name")}
-      />
-      <input
-        type="checkbox"
-        id=""
-        className="hidden"
-        style={{ display: "none" }}
-        {...register("botcheck")}
-      ></input>
       <h3>
         <strong className="text-2xl">Hi, {$formFields.name}!</strong>
       </h3>
