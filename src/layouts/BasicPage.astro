@@ -7,10 +7,14 @@ import "@fontsource/merriweather";
 
 export interface Props {
   title: string;
+  frontmatter: {
+    title: string;
+  };
 }
 
-const { title } = Astro.props;
-const { frontmatter } = Astro.props as any;
+const { frontmatter } = Astro.props as Props;
+const isProd = import.meta.env.PROD;
+const gtmHTMLString = `window.dataLayer = window.dataLayer || []; window.gtag = function gtag() { dataLayer.push(arguments); }; gtag("js", new Date());gtag("config", "G-XE24XZYQ7M");`;
 ---
 
 <!DOCTYPE html>
@@ -32,19 +36,17 @@ const { frontmatter } = Astro.props as any;
     <meta property="og:image" content="/social-media-image.jpg" />
     <title>{frontmatter.title}</title>
     <!-- Google tag (gtag.js) -->
-    <script
-      type="text/partytown"
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-XE24XZYQ7M"></script>
-    <script type="text/partytown">
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function gtag() {
-        dataLayer.push(arguments);
-      };
-      gtag("js", new Date());
-
-      gtag("config", "G-XE24XZYQ7M");
-    </script>
+    {
+      isProd && (
+        <>
+          <script
+            type="text/partytown"
+            src="https://www.googletagmanager.com/gtag/js?id=G-XE24XZYQ7M"
+          />
+          <script type="text/partytown" set:html={gtmHTMLString} />
+        </>
+      )
+    }
   </head>
 
   <body>
