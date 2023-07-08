@@ -14,7 +14,7 @@ export default defineConfig({
     serviceEntryPoint: "@astrojs/image/sharp"
   }), partytown({
     config: {
-      forward: ["dataLayer.push", "gtag"],
+      forward: ["dataLayer.push"],
     },
   })],
   adapter: vercel(),
