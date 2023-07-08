@@ -36,9 +36,9 @@ const { title } = Astro.props;
       src="https://www.googletagmanager.com/gtag/js?id=G-XE24XZYQ7M"></script>
     <script type="text/partytown">
       window.dataLayer = window.dataLayer || [];
-      window.gtag = function gtag() {
+      function gtag() {
         dataLayer.push(arguments);
-      };
+      }
       gtag("js", new Date());
 
       gtag("config", "G-XE24XZYQ7M");
