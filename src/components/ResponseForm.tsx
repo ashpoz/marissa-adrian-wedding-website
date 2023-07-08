@@ -6,6 +6,7 @@ import { sendEmail, sendToSheets } from "@lib/formFunctions";
 import type { IFormInput } from "@lib/formTypes";
 import ErrorOutput from "./ErrorOutput";
 import SubmitButton from "./SubmitButton";
+import { gaEvent } from "@lib/ga";
 
 const ResponseForm = () => {
   const $formFields = useStore(formFields);
@@ -36,11 +37,28 @@ const ResponseForm = () => {
     });
 
     try {
-      // send data to web3forms
-      await Promise.all([
-        sendEmail($formFields, data),
-        sendToSheets($formFields, data, partyArr as any),
-      ]);
+      if (import.meta.env.DEV) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log("form submitted", {
+          ...$formFields,
+          party: partyArr,
+          note: data.note,
+          songRequests: data.songRequests,
+        });
+      } else {
+        // send data to web3forms
+        await Promise.all([
+          sendEmail($formFields, data),
+          sendToSheets($formFields, data, partyArr as any),
+        ]);
+        // send GA event
+        gaEvent({
+          action: "form_submit",
+          params: {
+            form_name: "RSVP",
+          },
+        });
+      }
 
       // if successful, set completed to true
       formFields.set({
