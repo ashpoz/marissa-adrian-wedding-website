@@ -20,6 +20,7 @@ const updateCell = async (row: any, column: any, value: any) => {
 };
 
 const updatePartyRSVP = async (partyArr: any, rows: any) => {
+  if (partyArr.length <= 1) return;
   for (const guest of partyArr) {
     const { id, attending } = guest;
     const currentRow = rows[id - 1];
@@ -57,7 +58,7 @@ export const post: APIRoute = async ({ request }) => {
     const mainGuestRow = await rows[guestId];
 
     // if guest has a party, update RSVP for each guest in party
-    if (data.party.length > 0) {
+    if (data.party.length > 1) {
       // update RSVP for each guest in main guest's party
       await Promise.all([
         updatePartyRSVP(data.party, rows),

@@ -5,6 +5,7 @@ import type { IFormInput } from "./formTypes";
 const web3formAPIUrl = "https://api.web3forms.com/submit";
 const googleSheetsAPIUrl = "/api/response";
 
+// TODO: if local dev, don't send email
 export const sendEmail = async (formFields: FormFields, data: IFormInput) => {
   // send data to web3forms
   const web3formResponse = await fetch(web3formAPIUrl, {
@@ -42,6 +43,7 @@ export const sendToSheets = async (
     method: "POST",
     body: JSON.stringify({
       id: formFields.id,
+      attending: data.attending,
       name: formFields.name,
       note: data.note,
       songRequests: data.songRequests,
