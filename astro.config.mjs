@@ -15,6 +15,7 @@ export default defineConfig({
   }), partytown({
     config: {
       forward: ["dataLayer.push", "gtag"],
+      config: { debug: false },
     },
   })],
   adapter: vercel(),
